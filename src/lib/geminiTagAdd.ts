@@ -9,7 +9,12 @@ const gemini = async (inputText: string) => {
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
   const result = await model.generateContent(
-    `${inputText}にtitleを付けたいのでできるだけ簡潔に要約して
+    `${inputText}の内容に基づいて以下のものから適切なものを一つ選んでください
+    1. 教育
+    2.交通機関
+    3.部活
+    4.食事
+    
    `
   );
 

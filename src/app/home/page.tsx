@@ -1,23 +1,24 @@
 "use client";
 import { useSession } from "next-auth/react";
-import Login from "@/components/ui//google/Login";
-import Logout from "@/components/ui/google/Logout";
-export default function Home() {
+import Link from "next/link";
+export default function Page() {
   const { data: session, status } = useSession();
+
   return (
-    <div>
+    <>
+      <h1>Home</h1>
+      <Link href="/home/">投稿</Link>
+
       {status === "authenticated" ? (
         <div>
           <p>セッションの期限：{session.expires}</p>
           <p>ようこそ、{session.user?.name}さん</p>
-
-          <div>
-            <Logout />
-          </div>
         </div>
       ) : (
-        <Login />
+        <div>
+          <p>あなたはログインしていません</p>
+        </div>
       )}
-    </div>
+    </>
   );
 }

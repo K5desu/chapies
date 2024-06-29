@@ -1,4 +1,4 @@
-import gemini from "@/lib/gemini";
+import gemini from "@/lib/geminiTagAdd";
 import * as line from "@line/bot-sdk";
 export async function POST(request: Request) {
   const res = await request.json();
