@@ -14,9 +14,9 @@ export async function POST(request: Request) {
         type: "text",
         text: "新しい記事が作成されました",
       });
-      return "OK";
+      return Response.redirect("/api/article", 200);
     } catch (e) {
-      return e;
+      return Response.redirect("/api/article", 500);
     }
   }
 }
