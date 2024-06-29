@@ -32,7 +32,7 @@ export async function POST(request: Request) {
                     text: response.candidates[0].content.parts[0].text || "",
                   },
                 ];
-                await client.broadcast(messages);
+                await client.replyMessage(event.replyToken, messages);
                 await client.broadcast(event.message.text);
                 console.log("message", messages);
               }
