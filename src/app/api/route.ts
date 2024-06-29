@@ -33,6 +33,7 @@ export async function POST(request: Request) {
                   },
                 ];
                 await client.broadcast(messages);
+                await client.broadcast(event.message.text);
                 console.log("message", messages);
               }
 
