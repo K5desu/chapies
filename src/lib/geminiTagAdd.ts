@@ -14,6 +14,8 @@ const gemini = async (inputText: string) => {
     2.交通機関
     3.部活
     4.食事
+    5.リラックス
+    6.その他
     
    `
   );
