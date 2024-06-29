@@ -1,5 +1,4 @@
 "use server";
-import gemini from "@/lib/gemini";
 import * as line from "@line/bot-sdk";
 export async function addNewFacility(text: string) {
   const config = {
