@@ -5,7 +5,7 @@ export async function addNewFacility(text: string) {
     channelAccessToken: process.env.CHANNEL_TOKEN || "",
     channelSecret: process.env.CHANNEL_SECRET || "",
   };
-  console.log("config", config);
+
   if (config.channelAccessToken && config.channelSecret) {
     const client = new line.Client(config);
     try {
