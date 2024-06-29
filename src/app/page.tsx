@@ -21,7 +21,16 @@ export default function Home() {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ text }),
+            body: JSON.stringify({
+              events: [
+                {
+                  type: "message",
+                  message: {
+                    text: text,
+                  },
+                },
+              ],
+            }),
           });
           const data = await res.json();
           if (
