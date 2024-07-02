@@ -7,7 +7,10 @@ export async function POST(request: Request) {
     channelAccessToken: process.env.CHANNEL_TOKEN || "",
     channelSecret: process.env.CHANNEL_SECRET || "",
   };
-  const client = new line.Client(config);
+  const client = new line.messagingApi.MessagingApiClient({
+    channelAccessToken: config.channelAccessToken,
+  });
+
   await Promise.all(
     (res.events || []).map((event: any) =>
       (async () => {
