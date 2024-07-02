@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { POST } from "@/app/api/article/route";
+import { POSTA } from "@/app/api/article/posta";
 import { useToast } from "@/components/ui/use-toast";
 export default function Page() {
   const [name, setName] = useState("");
@@ -16,7 +16,7 @@ export default function Page() {
 
       <button
         onClick={async () => {
-          await POST(name);
+          await POSTA(name);
           setName("");
           toast({
             title: "送信しました ",
