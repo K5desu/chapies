@@ -1,5 +1,5 @@
 import gemini from "@/lib/geminiTagAdd";
-import * as line from "@line/bot-sdk";
+import line from "@line/bot-sdk";
 export async function POST(request: Request) {
   const res = await request.json();
 
@@ -7,7 +7,9 @@ export async function POST(request: Request) {
     channelAccessToken: process.env.CHANNEL_TOKEN || "",
     channelSecret: process.env.CHANNEL_SECRET || "",
   };
-  const client = new line.Client(config);
+  const client = new line.messagingApi.MessagingApiClient({
+    channelAccessToken: config.channelAccessToken,
+  });
   await Promise.all(
     (res.events || []).map((event: any) =>
       (async () => {
@@ -24,13 +26,16 @@ export async function POST(request: Request) {
               ) {
                 // `response`変数に直接文字列を設定
 
-                const messages: { type: "text"; text: string }[] = [
-                  {
-                    type: "text",
-                    text: response.candidates[0].content.parts[0].text || "",
-                  },
-                ];
-                await client.replyMessage(event.replyToken, messages);
+                const messages = {
+                  replyToken: event.replyToken,
+                  messages: [
+                    {
+                      type: "text" as const,
+                      text: response.candidates[0].content.parts[0].text || "",
+                    },
+                  ],
+                };
+                await client.replyMessage(messages);
                 await client.broadcast(event.message.text);
                 console.log("message", messages);
               }
