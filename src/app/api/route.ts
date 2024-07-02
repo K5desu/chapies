@@ -1,7 +1,7 @@
 import gemini from "@/lib/geminiTagAdd";
 import * as line from "@line/bot-sdk";
 export async function POST(request: Request) {
-  const res = await request.json();
+  const req = await request.json();
 
   const config = {
     channelAccessToken: process.env.CHANNEL_TOKEN || "",
@@ -12,14 +12,17 @@ export async function POST(request: Request) {
   });
 
   await Promise.all(
-    (res.events || []).map((event: any) =>
+    (req.events || []).map((event: any) =>
       (async () => {
+        await client.showLoadingAnimation({
+          chatId: "U8bcfd6d1846b2d3c55f31cff57ec3737",
+          loadingSeconds: 40,
+        });
         switch (event.type) {
           case "message": {
             const response = await gemini(event.message.text);
-            console.log(event.message.text);
+
             try {
-              console.log("response", response);
               if (
                 response.candidates &&
                 response.candidates &&
@@ -33,38 +36,21 @@ export async function POST(request: Request) {
                     text: response.candidates[0].content.parts[0].text || "",
                   },
                 ];
-                const echo = {
-                  type: "text",
-                  text: event.message.text,
-                };
+
                 await client.replyMessage({
                   replyToken: event.replyToken,
                   messages: messages,
                 });
-                await client.broadcast(event.message.text);
-                console.log("message", messages);
               }
 
-              return new Response(JSON.stringify(response), {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              });
+              return Response.json({ response });
             } catch (e) {
-              return new Response(JSON.stringify(e), {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-              });
+              return Response.json({ error: e });
             }
           }
         }
       })()
     )
   );
-  return new Response("OK", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return Response.json({ status: "ok" });
 }
