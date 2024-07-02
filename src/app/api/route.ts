@@ -33,7 +33,14 @@ export async function POST(request: Request) {
                     text: response.candidates[0].content.parts[0].text || "",
                   },
                 ];
-                await client.broadcast(event.message.text);
+                const echo = {
+                  type: "text",
+                  text: event.message.text,
+                };
+                await client.replyMessage({
+                  replyToken: event.replyToken,
+                  messages: messages,
+                });
                 await client.broadcast(event.message.text);
                 console.log("message", messages);
               }
