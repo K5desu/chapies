@@ -15,7 +15,7 @@ export async function POST(request: Request) {
     (req.events || []).map((event: any) =>
       (async () => {
         await client.showLoadingAnimation({
-          chatId: "U8bcfd6d1846b2d3c55f31cff57ec3737",
+          chatId: event.source.userId,
           loadingSeconds: 40,
         });
         switch (event.type) {
