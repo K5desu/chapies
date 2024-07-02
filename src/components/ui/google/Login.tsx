@@ -12,7 +12,10 @@ export default function Login() {
     return (
       <div>
         <p>あなたはログインしていません</p>
-        <button onClick={() => signIn("google", {}, { prompt: "login" })}>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:shadow-xl transition duration-150 ease-in-out"
+          onClick={() => signIn("google", {}, { prompt: "login" })}
+        >
           Googleでログイン
         </button>
       </div>

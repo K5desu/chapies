@@ -1,12 +1,9 @@
 import gemini from "@/lib/geminiTagAdd";
 import * as line from "@line/bot-sdk";
+import { config } from "@/lib/config";
 export async function POST(request: Request) {
   const req = await request.json();
 
-  const config = {
-    channelAccessToken: process.env.CHANNEL_TOKEN || "",
-    channelSecret: process.env.CHANNEL_SECRET || "",
-  };
   const client = new line.messagingApi.MessagingApiClient({
     channelAccessToken: config.channelAccessToken,
   });
