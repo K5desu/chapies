@@ -18,7 +18,7 @@ export default async function POSTA(req: string) {
               type: "bubble",
               hero: {
                 type: "image",
-                url: "https://lh6.googleusercontent.com/proxy/CNTIYcLDueUPOFa3q0HHITvuGbTBvsky-MfzskOEwpvdh_SwXqqAmdzlXxKQGOtah2o20DJUlrIiJpvbUHIqEoOMzo1-ol6W",
+                url: "https://steam.ryukoku.ac.jp/wp-content/themes/steam/img/mv01.jpeg",
                 size: "full",
                 aspectRatio: "20:13",
                 aspectMode: "cover",
