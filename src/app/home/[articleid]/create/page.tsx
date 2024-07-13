@@ -14,16 +14,16 @@ export default function Page() {
   };
   const { toast } = useToast();
   async function postArticle() {
-    const Response = await fetch("http://localhost:3000/api/boubble?疲れた", {
-      method: "GET", // HTTPメソッド
+    await fetch("http://localhost:3000/api/article", {
+      method: "POST", // HTTPメソッド
       headers: {
         "Content-Type": "application/json", // コンテントタイプ
       },
-      // データを文字列化
+      body: JSON.stringify(data), // データを文字列化
     })
       .then((response) => response.json()) // レスポンスのJSONを解析
       .then((data) => {
-        console.log("Success:", Response); // 成功時の処理
+        console.log("Success:", data); // 成功時の処理
       })
       .catch((error) => {
         console.error("Error:", error); // エラー時の処理
