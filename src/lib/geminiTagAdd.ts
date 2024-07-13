@@ -10,7 +10,9 @@ const gemini = async (inputText: string) => {
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
   const result = await model.generateContent(
     `
-施設の提案をしてもらいます。以下の情報と例を元に提案してくださいませ。
+${inputText}
+
+上記入力に基づいて以下の情報と例を元に施設を提案してください。
 施設名：steamコモンズ
 説明：ものづくりができる場所。3Dプリンター、レーザーカッター、大型インクジェットプリンターなどを設置しており、（大型機械は予約必要）マイコンも貸し出ししているためIoTを用いたものづくりも経験できる。
 タグ：IT、文化部、サークル、部活、ボランティア
@@ -32,7 +34,6 @@ const gemini = async (inputText: string) => {
 例3：買い物がしたい
 
 回答：ファミリーマート龍谷大学店がおすすめです。
-${inputText}
 
  
    `
