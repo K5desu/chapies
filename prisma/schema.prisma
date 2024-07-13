@@ -7,25 +7,25 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url      = env("DATABASE_URL")
 }
-model User {
-  id    Int     @id @default(autoincrement())
-  mail  String  @unique
-  owner Boolean
-  articles Article[]
+model user {
+  id    String     @id @default(uuid())
+  mail  String  
+  owner Boolean 
+  article article[]
 }
 
-model Article {
-  id      Int     @id @default(autoincrement())
-  content String
-  tags    String
-  campus  Int
-  title   String
-  img     Bytes
-  userId  Int
-  user    User    @relation(fields: [userId], references: [id])
+model article {
+  id      String     @id @default(uuid())
+  title   String  
+  content String  
+  tags    String  
+  campas  Boolean     
+  img     String
+  userid  String  
+  user    user    @relation(fields: [userid], references: [id])
 }

@@ -30,7 +30,6 @@ export default function Page() {
       ) : (
         <div>
           <p>あなたはログインしていないor認められたアカウントではありません</p>
-          <Logout />
           <Login />
         </div>
       )}

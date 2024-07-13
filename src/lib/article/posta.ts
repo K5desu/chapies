@@ -2,7 +2,7 @@
 import * as line from "@line/bot-sdk";
 import { config } from "@/lib/config";
 
-export async function POSTA(req: string) {
+export default async function POSTA(req: string) {
   if (config.channelAccessToken && config.channelSecret) {
     const client = new line.messagingApi.MessagingApiClient({
       channelAccessToken: config.channelAccessToken,
