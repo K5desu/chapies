@@ -1,11 +1,23 @@
 "use client";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import Logout from "@/components/ui/google/Logout";
-import Login from "@/components/ui/google/Login";
+import Logout from "@/components/google/Logout";
+import Login from "@/components/google/Login";
+import * as React from "react";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
+
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 export default function Page() {
   const { data: session, status } = useSession();
   let emailDomain = "";
+  const { setTheme } = useTheme();
   if (session) {
     emailDomain =
       session.user?.email && session.user.email.includes("@")
@@ -14,6 +26,26 @@ export default function Page() {
   }
   return (
     <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline" size="icon">
+            <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+            <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+            <span className="sr-only">Toggle theme</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => setTheme("light")}>
+            Light
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("dark")}>
+            Dark
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme("system")}>
+            System
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
       {status === "authenticated" && emailDomain === "mail.ryukoku.ac.jp" ? (
         <div>
           <h1>Home</h1>

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/toast/use-toast";
 export default function Page() {
   const [input, setInput] = useState("");
   const data = {

@@ -1,6 +1,7 @@
 "use client";
+
 import { useSession } from "next-auth/react";
-import Login from "@/components/ui//google/Login";
+import Login from "@/components/google/Login";
 import { useEffect } from "react";
 
 import { useRouter } from "next/navigation";

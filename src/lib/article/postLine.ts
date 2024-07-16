@@ -2,13 +2,20 @@
 import * as line from "@line/bot-sdk";
 import { config } from "@/lib/config";
 
-export default async function POSTA(req: string) {
+export default async function postLine(req: string) {
   if (config.channelAccessToken && config.channelSecret) {
     const client = new line.messagingApi.MessagingApiClient({
       channelAccessToken: config.channelAccessToken,
     });
-    console.log(req);
     try {
+      await client.broadcast({
+        messages: [
+          {
+            type: "text",
+            text: "新しい記事が投稿されました",
+          },
+        ],
+      });
       await client.broadcast({
         messages: [
           {
