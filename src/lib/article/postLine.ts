@@ -7,7 +7,6 @@ export default async function postLine(
   imgurl: string,
   articleUrl: string
 ) {
-  console.log("postLine", title, imgurl);
   if (config.channelAccessToken && config.channelSecret) {
     const client = new line.messagingApi.MessagingApiClient({
       channelAccessToken: config.channelAccessToken,

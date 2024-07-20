@@ -20,7 +20,6 @@ export default function AvatarUploadPage() {
     });
     const newBlob = (await response.json()) as PutBlobResult;
     await CreateNewArticle(title, newBlob.url);
-    setBlob(newBlob);
   }
   return (
     <>
