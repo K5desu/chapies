@@ -3,11 +3,12 @@
 import type { PutBlobResult } from "@vercel/blob";
 import { CreateNewArticle } from "@/app/api/article/createNewArticle";
 import { useState, useRef } from "react";
-
-export default function AvatarUploadPage() {
+import { FacilityName } from "@/components/article/facility-name";
+import { FacilityTag } from "@/components/article/facility-tag";
+export default function Page() {
   const inputFileRef = useRef<HTMLInputElement>(null);
   const [blob, setBlob] = useState<PutBlobResult | null>(null);
-  const [title, setTitle] = useState<string>("");
+  let title: string;
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!inputFileRef.current?.files) {
@@ -23,20 +24,11 @@ export default function AvatarUploadPage() {
   }
   return (
     <>
-      <h1>Upload Your Avatar</h1>
-
       <form
         onSubmit={async (event) => {
           await handleSubmit(event);
         }}
       >
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        />
         <input name="file" ref={inputFileRef} type="file" required />
         <button type="submit">Uploadaa</button>
       </form>
@@ -45,6 +37,8 @@ export default function AvatarUploadPage() {
           Blob url: <a href={blob.url}>{blob.url}</a>
         </div>
       )}
+      <FacilityName />
+      <FacilityTag />
     </>
   );
 }

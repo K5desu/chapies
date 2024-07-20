@@ -14,19 +14,35 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 model user {
-  id    String     @id @default(uuid())
-  mail  String  @unique
-  owner Boolean 
-  article article[]
+  id      String    @id @default(uuid())
+  mail    String    @unique
+  name    String
+  comment String?
+  owner   Boolean
+  image   String?   // ユーザー画像URLを格納するオプショナルフィールド
+  articles article[]
+  likes   Like[]
 }
 
 model article {
-  id      String     @id @default(uuid())
-  title   String  
-  content String  
-  tags    String  
-  campas  Boolean     
-  img     String
-  userid  String  
-  user    user    @relation(fields: [userid], references: [id])
+  id       String   @id @default(uuid())
+  title    String  
+  content  String  
+  tags     String  
+  campas   Boolean     
+  img      String
+  userid   String  
+  user     user     @relation(fields: [userid], references: [id])
+  likes    Like[]
+}
+
+// いいね機能を表すモデル
+model Like {
+  id        String   @id @default(uuid())
+  userId    String
+  articleId String
+  user      user     @relation(fields: [userId], references: [id])
+  article   article  @relation(fields: [articleId], references: [id])
+
+  @@unique([userId, articleId]) // 同じユーザーが同じ記事に複数回いいねを付けることを防ぐ
 }

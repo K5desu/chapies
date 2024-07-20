@@ -3,6 +3,7 @@ import React from "react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Logout from "@/components/google/Logout";
+import { EditProfile } from "@/components/mypage/edit-profile";
 const ProfilePage = () => {
   // 仮のユーザーデータと投稿データ
   const user = {
@@ -30,20 +31,19 @@ const ProfilePage = () => {
       <section className="text-center mb-10">
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CNaaaaaaaaaaaaaa</AvatarFallback>
+          <AvatarFallback></AvatarFallback>
         </Avatar>
 
         <h1 className="text-3xl font-bold mt-3">{user.name}</h1>
+        <section className="mb-10">
+          <h2 className="text-xl font-bold">一言メッセージ</h2>
+          <p className="mt-2">{user.message}</p>
+        </section>
         <p>レベル: {user.level}</p>
-        <button className="mt-3 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-          編集
-        </button>
+        <EditProfile />
         <Logout />
       </section>
-      <section className="mb-10">
-        <h2 className="text-xl font-bold">一言メッセージ</h2>
-        <p className="mt-2">{user.message}</p>
-      </section>
+
       <section>
         <h2 className="text-xl font-bold mb-5">投稿記事</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -18,8 +18,6 @@ export default function Page() {
   }
   return (
     <>
-      <DarkMode />
-
       {status === "authenticated" && emailDomain === "mail.ryukoku.ac.jp" ? (
         <div>
           <h1>Home</h1>
@@ -37,6 +35,7 @@ export default function Page() {
           <p>あなたはログインしていないor認められたアカウントではありません</p>
         </div>
       )}
+      <DarkMode />
     </>
   );
 }
