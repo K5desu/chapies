@@ -1,3 +1,4 @@
+import Load from "@/components/ui/load";
 export default function Loading() {
-  return <div>Loading...</div>;
+  return <Load />;
 }

@@ -2,7 +2,12 @@
 import * as line from "@line/bot-sdk";
 import { config } from "@/lib/config";
 
-export default async function postLine(req: string) {
+export default async function postLine(
+  title: string,
+  imgurl: string,
+  articleUrl: string
+) {
+  console.log("postLine", title, imgurl);
   if (config.channelAccessToken && config.channelSecret) {
     const client = new line.messagingApi.MessagingApiClient({
       channelAccessToken: config.channelAccessToken,
@@ -25,7 +30,7 @@ export default async function postLine(req: string) {
               type: "bubble",
               hero: {
                 type: "image",
-                url: "https://steam.ryukoku.ac.jp/wp-content/themes/steam/img/mv01.jpeg",
+                url: imgurl,
                 size: "full",
                 aspectRatio: "20:13",
                 aspectMode: "cover",
@@ -40,7 +45,7 @@ export default async function postLine(req: string) {
                 contents: [
                   {
                     type: "text",
-                    text: req,
+                    text: title,
                     weight: "bold",
                     size: "xl",
                   },
@@ -57,18 +62,8 @@ export default async function postLine(req: string) {
                     height: "sm",
                     action: {
                       type: "uri",
-                      label: "CALL",
-                      uri: "https://line.me/",
-                    },
-                  },
-                  {
-                    type: "button",
-                    style: "link",
-                    height: "sm",
-                    action: {
-                      type: "uri",
-                      label: "WEBSITE",
-                      uri: "https://line.me/",
+                      label: "Webサイトを見る",
+                      uri: articleUrl,
                     },
                   },
                   {

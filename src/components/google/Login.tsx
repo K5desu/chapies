@@ -1,11 +1,12 @@
 import React from "react";
 import { useSession, signIn } from "next-auth/react";
+import Load from "@/components/ui/load";
 
 export default function Login() {
   const { data: session, status } = useSession();
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return <Load />;
   }
 
   if (status !== "authenticated") {

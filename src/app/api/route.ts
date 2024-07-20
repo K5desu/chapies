@@ -1,4 +1,4 @@
-import gemini from "@/lib/geminiTagAdd";
+import gemini from "@/lib/geminiFacilitySuggestion";
 import * as line from "@line/bot-sdk";
 import { config } from "@/lib/config";
 export async function POST(request: Request) {

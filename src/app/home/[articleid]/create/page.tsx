@@ -1,54 +1,51 @@
 "use client";
-import { useState } from "react";
-import { useToast } from "@/components/toast/use-toast";
-export default function Page() {
-  const [input, setInput] = useState("");
-  const data = {
-    mail: "example@mail.com",
-    owner: true,
-    content: "記事の内容",
-    tags: "食事",
-    campas: true,
-    title: input,
-    img: "画像のURL",
-  };
-  const { toast } = useToast();
-  async function postArticle() {
-    await fetch("http://localhost:3000/api/article", {
-      method: "POST", // HTTPメソッド
-      headers: {
-        "Content-Type": "application/json", // コンテントタイプ
-      },
-      body: JSON.stringify(data), // データを文字列化
-    })
-      .then((response) => response.json()) // レスポンスのJSONを解析
-      .then((data) => {
-        console.log("Success:", data); // 成功時の処理
-      })
-      .catch((error) => {
-        console.error("Error:", error); // エラー時の処理
-      });
+
+import type { PutBlobResult } from "@vercel/blob";
+import { CreateNewArticle } from "@/app/api/article/createNewArticle";
+import { useState, useRef } from "react";
+
+export default function AvatarUploadPage() {
+  const inputFileRef = useRef<HTMLInputElement>(null);
+  const [blob, setBlob] = useState<PutBlobResult | null>(null);
+  const [title, setTitle] = useState<string>("");
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!inputFileRef.current?.files) {
+      throw new Error("No file selected");
+    }
+    const file = inputFileRef.current.files[0];
+    const response = await fetch(`/api/img?filename=${file.name}`, {
+      method: "POST",
+      body: file,
+    });
+    const newBlob = (await response.json()) as PutBlobResult;
+    await CreateNewArticle(title, newBlob.url);
+    setBlob(newBlob);
   }
   return (
-    <div>
-      <input
-        className="border border-black"
-        value={input}
-        onChange={(e) => setInput(e.currentTarget.value)}
-      />
-      <button
-        onClick={async () => {
-          setInput("");
-          toast({
-            title: "送信しました ",
-            description: "記事を送信しました",
-          });
-          await postArticle();
+    <>
+      <h1>Upload Your Avatar</h1>
+
+      <form
+        onSubmit={async (event) => {
+          await handleSubmit(event);
         }}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
-        送信
-      </button>
-    </div>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        />
+        <input name="file" ref={inputFileRef} type="file" required />
+        <button type="submit">Uploadaa</button>
+      </form>
+      {blob && (
+        <div>
+          Blob url: <a href={blob.url}>{blob.url}</a>
+        </div>
+      )}
+    </>
   );
 }
