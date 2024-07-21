@@ -7,13 +7,13 @@ import { FacilityName } from "@/components/article/facility-name";
 import { FacilityTag } from "@/components/article/facility-tag";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+
 import { useArticleStore } from "@/store/article-store";
+
 export default function Page() {
-  const { title, tag } = useArticleStore();
+  const { title, content, setArticleContent } = useArticleStore();
 
   const inputFileRef = useRef<HTMLInputElement>(null);
-  const [content, setContent] = useState("");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -41,7 +41,7 @@ export default function Page() {
         <FacilityTag />
         <Textarea
           onChange={(e) => {
-            setContent(e.target.value);
+            setArticleContent(e.target.value);
           }}
           value={content}
           placeholder="Content"

@@ -21,13 +21,8 @@ import { useEffect } from "react";
 import { useArticleStore } from "@/store/article-store";
 export function FacilityName() {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+
   const { setArticleTitle, title } = useArticleStore();
-  useEffect(() => {
-    if (title !== "未入力") {
-      setValue(title);
-    }
-  }, []);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -38,9 +33,10 @@ export function FacilityName() {
           aria-expanded={open}
           className="w-[200px] justify-between"
         >
-          {value
-            ? facilityName.find((framework) => framework.value === value)?.label
-            : "施設名"}
+          {title == ""
+            ? "施設名"
+            : facilityName.find((framework) => framework.value === title)
+                ?.label}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -54,8 +50,7 @@ export function FacilityName() {
                 key={framework.value}
                 value={framework.value}
                 onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
-                  setArticleTitle(currentValue);
+                  setArticleTitle(currentValue === title ? "" : currentValue);
 
                   setOpen(false);
                 }}
@@ -63,7 +58,7 @@ export function FacilityName() {
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    value === framework.value ? "opacity-100" : "opacity-0"
+                    title === framework.value ? "opacity-100" : "opacity-0"
                   )}
                 />
                 {framework.label}

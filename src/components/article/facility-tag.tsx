@@ -1,6 +1,6 @@
 import { Mail, User } from "lucide-react";
 import { tags } from "@/lib/data";
-import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,19 +14,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useArticleStore } from "@/store/article-store";
-import { useEffect } from "react";
+
 export function FacilityTag() {
-  const [tagname, setTagname] = useState("タグ");
   const { tag, setArticleTag } = useArticleStore();
-  useEffect(() => {
-    if (tag !== "未入力") {
-      setTagname(tag);
-    }
-  }, []);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">{tag}</Button>
+        <Button variant="outline">{tag == "" ? "タグ" : tag}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         {tags.map((tag, index) => (
@@ -41,7 +36,6 @@ export function FacilityTag() {
                   {Object.entries(tag.value).map(([key, value]) => (
                     <DropdownMenuItem
                       onClick={() => {
-                        setTagname(value);
                         setArticleTag(value);
                       }}
                       key={key}

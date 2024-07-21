@@ -16,10 +16,10 @@ export type ArticleActions = {
 export type ArticleStore = ArticleState & ArticleActions;
 
 export const defaultInitState: ArticleState = {
-  title: "未入力",
-  img: "未入力",
-  tag: "未入力",
-  content: "未入力",
+  title: "",
+  img: "",
+  tag: "",
+  content: "",
 };
 export const useArticleStore = create<ArticleStore>((set) => ({
   ...defaultInitState,
