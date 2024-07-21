@@ -7,14 +7,10 @@ import { FacilityName } from "@/components/article/facility-name";
 import { FacilityTag } from "@/components/article/facility-tag";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-
 import { useArticleStore } from "@/store/article-store";
-
 export default function Page() {
   const { title, content, setArticleContent } = useArticleStore();
-
   const inputFileRef = useRef<HTMLInputElement>(null);
-
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!inputFileRef.current?.files) {
