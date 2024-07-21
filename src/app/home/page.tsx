@@ -4,12 +4,11 @@ import Link from "next/link";
 
 import * as React from "react";
 
-import { useTheme } from "next-themes";
 import DarkMode from "@/components/ui/darkMode";
 export default function Page() {
   const { data: session, status } = useSession();
   let emailDomain = "";
-  const { setTheme } = useTheme();
+
   if (session) {
     emailDomain =
       session.user?.email && session.user.email.includes("@")

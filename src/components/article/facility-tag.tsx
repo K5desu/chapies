@@ -7,18 +7,22 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import { useArticleStore } from "@/store/article-store";
+import { useEffect } from "react";
 export function FacilityTag() {
-  const [tag, setTag] = useState("タグ");
+  const [tagname, setTagname] = useState("タグ");
+  const { tag, setArticleTag } = useArticleStore();
+  useEffect(() => {
+    if (tag !== "未入力") {
+      setTagname(tag);
+    }
+  }, []);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -35,7 +39,13 @@ export function FacilityTag() {
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
                   {Object.entries(tag.value).map(([key, value]) => (
-                    <DropdownMenuItem onClick={() => setTag(value)} key={key}>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setTagname(value);
+                        setArticleTag(value);
+                      }}
+                      key={key}
+                    >
                       <Mail className="mr-2 h-4 w-4" />
                       <span>{value}</span>
                     </DropdownMenuItem>

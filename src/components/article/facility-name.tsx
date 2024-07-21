@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { use, useState } from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
 import { facilityName } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -17,10 +17,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
+import { useEffect } from "react";
+import { useArticleStore } from "@/store/article-store";
 export function FacilityName() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const { setArticleTitle, title } = useArticleStore();
+  useEffect(() => {
+    if (title !== "未入力") {
+      setValue(title);
+    }
+  }, []);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -48,6 +55,8 @@ export function FacilityName() {
                 value={framework.value}
                 onSelect={(currentValue) => {
                   setValue(currentValue === value ? "" : currentValue);
+                  setArticleTitle(currentValue);
+
                   setOpen(false);
                 }}
               >
