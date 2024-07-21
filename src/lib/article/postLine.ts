@@ -80,7 +80,7 @@ export default async function postLine(
       });
       return "ok";
     } catch (e) {
-      return "error";
+      throw new Error("Error");
     }
   }
 }

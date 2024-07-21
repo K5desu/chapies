@@ -1,23 +1,13 @@
 "use client";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
-
 import * as React from "react";
-
 import DarkMode from "@/components/ui/darkMode";
+import { RyuAuthenticator } from "@/lib/ryu-authentcator";
 export default function Page() {
-  const { data: session, status } = useSession();
-  let emailDomain = "";
-
-  if (session) {
-    emailDomain =
-      session.user?.email && session.user.email.includes("@")
-        ? session.user.email.split("@")[1]
-        : "";
-  }
+  const isRyu = RyuAuthenticator();
   return (
     <>
-      {status === "authenticated" && emailDomain === "mail.ryukoku.ac.jp" ? (
+      {isRyu ? (
         <div>
           <h1>Home</h1>
           <Link
@@ -26,8 +16,6 @@ export default function Page() {
           >
             投稿
           </Link>
-          <p>セッションの期限：{session.expires}</p>
-          <p>ようこそ、{session.user?.name}さん</p>
         </div>
       ) : (
         <div>
