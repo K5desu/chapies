@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { HomeIcon } from "@/components/ui/icons";
 import { AiIcon } from "@/components/ui/icons";
-import { ArticlesIcon } from "@/components/ui/icons";
 
 const links = [
   { name: "ホーム", href: "/", icon: HomeIcon },

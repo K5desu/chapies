@@ -2,6 +2,9 @@
 CREATE TABLE "user" (
     "id" TEXT NOT NULL,
     "mail" TEXT NOT NULL,
+    "instagram" TEXT,
+    "twitter" TEXT,
+    "github" TEXT,
     "name" TEXT NOT NULL,
     "comment" TEXT,
     "owner" BOOLEAN NOT NULL,

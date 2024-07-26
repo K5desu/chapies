@@ -7,12 +7,9 @@ export default function Login() {
 
   if (status === "loading") {
     return <Load />;
-  }
-
-  if (status !== "authenticated") {
+  } else {
     return (
       <div>
-        <p>あなたはログインしていません</p>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:shadow-xl transition duration-150 ease-in-out"
           onClick={() => signIn("google", {}, { prompt: "login" })}
@@ -22,5 +19,4 @@ export default function Login() {
       </div>
     );
   }
-  return null;
 }
