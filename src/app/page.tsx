@@ -1,17 +1,28 @@
 "use client";
-
-import { useSession } from "next-auth/react";
-import Login from "@/components/google/Login";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-export default function Home() {
-  const router = useRouter();
-  const { data: session, status } = useSession();
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/home"); // 認証済みの場合、/home にリダイレクト
-    }
-  }, [status, router]); // 依存配列に status と router を追加
-
-  return <div>{status !== "authenticated" && <Login />}</div>;
+import Link from "next/link";
+import * as React from "react";
+import DarkMode from "@/components/ui/darkMode";
+import { RyuAuthenticator } from "@/lib/ryu-authentcator";
+export default function Page() {
+  const isRyu = RyuAuthenticator();
+  return (
+    <>
+      {isRyu ? (
+        <div>
+          <h1>Home</h1>
+          <Link
+            href="/uuid/create"
+            className="inline-block bg-gradient-to-r from-blue-500 to-teal-400 text-white font-bold py-2 px-4 rounded-lg shadow hover:bg-gradient-to-br focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50 transition duration-150 ease-in-out"
+          >
+            投稿
+          </Link>
+        </div>
+      ) : (
+        <div>
+          <p>あなたはログインしていないor認められたアカウントではありません</p>
+        </div>
+      )}
+      <DarkMode />
+    </>
+  );
 }
