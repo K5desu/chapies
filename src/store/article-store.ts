@@ -12,7 +12,6 @@ export type ArticleActions = {
   setArticleTag: (tag: string) => void;
   setArticleContent: (content: string) => void;
 };
-
 export type ArticleStore = ArticleState & ArticleActions;
 
 export const defaultInitState: ArticleState = {
