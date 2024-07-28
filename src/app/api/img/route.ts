@@ -12,7 +12,7 @@ export async function POST(request: Request): Promise<NextResponse> {
     });
     return NextResponse.json(blob);
   }
-  return NextResponse.json({ error: "filename and body are required" });
+  throw new Error("No file selected");
   // Here's the code for Pages API Routes:
   // const blob = await put(filename, request, {
   //   access: 'public',

@@ -1,10 +1,11 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import Card from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Logout from "@/components/google/Logout";
 import { EditProfile } from "@/components/mypage/edit-profile";
 import { RyuAuthenticator } from "@/lib/ryu-authentcator";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Page() {
   const isRyu = RyuAuthenticator();
@@ -53,17 +54,18 @@ export default function Page() {
             <h2 className="text-xl font-bold mb-5">投稿記事</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {posts.map((post) => (
-                <Card
-                  key={post.id}
-                  id={post.id.toString()}
-                  title={post.title}
-                  content={post.summary}
-                  tags="React"
-                  campas={true}
-                  img="https://source.unsplash.com/random"
-                  url="/"
-                  userid="/"
-                />
+                <Suspense fallback={<Skeleton />} key={post.id}>
+                  <Card
+                    id={post.id.toString()}
+                    title={post.title}
+                    content={post.summary}
+                    tags="React"
+                    campas={true}
+                    img="https://source.unsplash.com/random"
+                    url="/"
+                    userid="/"
+                  />
+                </Suspense>
               ))}
             </div>
           </section>

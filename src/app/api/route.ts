@@ -7,47 +7,50 @@ export async function POST(request: Request) {
   const client = new line.messagingApi.MessagingApiClient({
     channelAccessToken: config.channelAccessToken,
   });
+  try {
+    await Promise.all(
+      (req.events || []).map((event: any) =>
+        (async () => {
+          await client.showLoadingAnimation({
+            chatId: event.source.userId,
+            loadingSeconds: 40,
+          });
+          switch (event.type) {
+            case "message": {
+              const response = await gemini(event.message.text);
 
-  await Promise.all(
-    (req.events || []).map((event: any) =>
-      (async () => {
-        await client.showLoadingAnimation({
-          chatId: event.source.userId,
-          loadingSeconds: 40,
-        });
-        switch (event.type) {
-          case "message": {
-            const response = await gemini(event.message.text);
+              try {
+                if (
+                  response.candidates &&
+                  response.candidates &&
+                  response.candidates[0].content.parts[0]
+                ) {
+                  // `response`変数に直接文字列を設定
 
-            try {
-              if (
-                response.candidates &&
-                response.candidates &&
-                response.candidates[0].content.parts[0]
-              ) {
-                // `response`変数に直接文字列を設定
+                  const messages: { type: "text"; text: string }[] = [
+                    {
+                      type: "text",
+                      text: response.candidates[0].content.parts[0].text || "",
+                    },
+                  ];
 
-                const messages: { type: "text"; text: string }[] = [
-                  {
-                    type: "text",
-                    text: response.candidates[0].content.parts[0].text || "",
-                  },
-                ];
+                  await client.replyMessage({
+                    replyToken: event.replyToken,
+                    messages: messages,
+                  });
+                }
 
-                await client.replyMessage({
-                  replyToken: event.replyToken,
-                  messages: messages,
-                });
+                return Response.json({ response });
+              } catch (e) {
+                return Response.json({ error: e });
               }
-
-              return Response.json({ response });
-            } catch (e) {
-              return Response.json({ error: e });
             }
           }
-        }
-      })()
-    )
-  );
-  return Response.json({ status: "ok" });
+        })()
+      )
+    );
+    return Response.json({ status: "ok" });
+  } catch (e) {
+    throw new Error("error");
+  }
 }

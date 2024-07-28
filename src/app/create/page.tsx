@@ -11,16 +11,17 @@ import { useArticleStore } from "@/store/article-store";
 import { useToast } from "@/components/toast/use-toast";
 import { RyuAuthenticator } from "@/lib/ryu-authentcator";
 import Logout from "@/components/google/Logout";
+import { Button } from "@/components/ui/button";
 export default function Page() {
   const isRyu = RyuAuthenticator();
   const { toast } = useToast();
   const { title, content, setArticleContent } = useArticleStore();
   const inputFileRef = useRef<HTMLInputElement>(null);
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  async function handleSubmit() {
     if (!inputFileRef.current?.files) {
       throw new Error("No file selected");
     }
+
     const file = inputFileRef.current.files[0];
     const response = await fetch(`/api/img?filename=${file.name}`, {
       method: "POST",
@@ -38,11 +39,7 @@ export default function Page() {
   return (
     <>
       {isRyu ? (
-        <form
-          onSubmit={async (event) => {
-            await handleSubmit(event);
-          }}
-        >
+        <form action={handleSubmit}>
           <Input placeholder="notionのurl"></Input>
           <Input type="file" ref={inputFileRef} required />
           <FacilityName />
@@ -54,7 +51,7 @@ export default function Page() {
             value={content}
             placeholder="Content"
           />
-          <button type="submit">Upload</button>
+          <Button type="submit">upload</Button>
         </form>
       ) : (
         <div>

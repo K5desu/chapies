@@ -5,7 +5,7 @@ export async function CreateNewArticle(title: string, url: string) {
   try {
     await postLine(title, url, "https://chapies.vercel.app/");
   } catch (error) {
-    return "error";
+    throw new Error("記事の投稿に失敗しました");
   }
 
   return "ok";

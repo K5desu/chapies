@@ -10,7 +10,7 @@ interface CardProps {
   url: string;
   userid: string;
 }
-export default function Card({
+export default async function Card({
   id,
   title,
   img,
