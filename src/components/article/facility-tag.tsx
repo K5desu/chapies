@@ -14,14 +14,27 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useArticleStore } from "@/store/article-store";
+import { useSearchStore } from "@/store/article-store";
+import { articleprops } from "@/lib/type";
 
-export function FacilityTag() {
+export function FacilityTag(props: articleprops) {
   const { tag, setArticleTag } = useArticleStore();
-
+  const { searchtag, setSearchTag } = useSearchStore();
+  function handleTag(value: string) {
+    if (props.action == "search") {
+      setSearchTag(value);
+    } else {
+      setArticleTag(value);
+    }
+  }
+  console.log(props);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline">{tag == "" ? "タグ" : tag}</Button>
+        <Button variant="outline">
+          {props.action == "create" && (tag == "" ? "タグ" : tag)}
+          {props.action == "search" && (searchtag == "" ? "タグ" : searchtag)}
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         {tags.map((tag, index) => (
@@ -36,7 +49,7 @@ export function FacilityTag() {
                   {Object.entries(tag.value).map(([key, value]) => (
                     <DropdownMenuItem
                       onClick={() => {
-                        setArticleTag(value);
+                        handleTag(value);
                       }}
                       key={key}
                     >

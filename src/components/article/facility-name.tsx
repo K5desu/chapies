@@ -17,31 +17,46 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
+import { useSearchStore } from "@/store/article-store";
 import { useArticleStore } from "@/store/article-store";
-export function FacilityName() {
+import { articleprops } from "@/lib/type";
+export function FacilityName(props: articleprops) {
   const [open, setOpen] = useState(false);
 
+  const { setSearchName, name } = useSearchStore();
+
   const { setArticleTitle, title } = useArticleStore();
+  function handleTitle(value: string) {
+    if (props.action == "search") {
+      setSearchName(value);
+    } else {
+      setArticleTitle(value);
+    }
+  }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild >
+      <PopoverTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
           aria-expanded={open}
           className="w-[200px] justify-between"
-         
         >
-          {title == ""
-            ? "施設名"
-            : facilityName.find((framework) => framework.value === title)
-                ?.label}
+          {props.action == "search" &&
+            (name == ""
+              ? "施設名"
+              : facilityName.find((framework) => framework.value === name)
+                  ?.label)}
+          {props.action == "create" &&
+            (title == ""
+              ? "施設名"
+              : facilityName.find((framework) => framework.value === title)
+                  ?.label)}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0" >
+      <PopoverContent className="w-[200px] p-0">
         <Command>
           <CommandInput placeholder="施設名を入力してください" />
           <CommandEmpty>No framework found.</CommandEmpty>
@@ -51,7 +66,7 @@ export function FacilityName() {
                 key={framework.value}
                 value={framework.value}
                 onSelect={(currentValue) => {
-                  setArticleTitle(currentValue === title ? "" : currentValue);
+                  handleTitle(currentValue === title ? "" : currentValue);
 
                   setOpen(false);
                 }}

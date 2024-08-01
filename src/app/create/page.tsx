@@ -42,8 +42,8 @@ export default function Page() {
         <form action={handleSubmit}>
           <Input placeholder="notionのurl"></Input>
           <Input type="file" ref={inputFileRef} required />
-          <FacilityName />
-          <FacilityTag />
+          <FacilityName action="create" />
+          <FacilityTag action="create" />
           <Textarea
             onChange={(e) => {
               setArticleContent(e.target.value);
