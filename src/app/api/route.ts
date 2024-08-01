@@ -1,5 +1,6 @@
 import gemini from "@/lib/geminiFacilitySuggestion";
 import * as line from "@line/bot-sdk";
+import postLine from "@/lib/article/postLine";
 import { config } from "@/lib/config";
 export async function POST(request: Request) {
   const req = await request.json();
@@ -38,7 +39,12 @@ export async function POST(request: Request) {
                     replyToken: event.replyToken,
                     messages: messages,
                   });
+                  const parts=response.candidates[0].content.parts[0].text?.split("回答 : ")
+                  await postLine(parts&&parts[1] ||"", "https://chapies.vercel.app/", "https://chapies.vercel.app/");
                 }
+                
+              } catch (error) {
+                throw new Error("記事の投稿に失敗しました");
 
                 return Response.json({ response });
               } catch (e) {
