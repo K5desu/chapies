@@ -43,7 +43,7 @@ export async function POST(request: Request) {
 
                   const parts =
                     response.candidates[0].content.parts[0].text.split(
-                      "回答 : "
+                      "回答："
                     );
                   await postLine(
                     (parts && parts[1]) || "aa",
