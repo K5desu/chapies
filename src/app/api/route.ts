@@ -24,7 +24,8 @@ export async function POST(request: Request) {
                 if (
                   response.candidates &&
                   response.candidates &&
-                  response.candidates[0].content.parts[0]
+                  response.candidates[0].content.parts[0] &&
+                  response.candidates[0].content.parts[0].text
                 ) {
                   // `response`変数に直接文字列を設定
 
@@ -39,10 +40,9 @@ export async function POST(request: Request) {
                     replyToken: event.replyToken,
                     messages: messages,
                   });
+
                   const parts =
-                    response.candidates[0].content.parts[0].text?.split(
-                      "回答 : "
-                    );
+                    response.candidates[0].content.parts[0].text.split("回答");
                   await postLine(
                     (parts && parts[1]) || "aa",
                     "https://jkweuq9mjmmniepb.public.blob.vercel-storage.com/Horizoico-AKahOCg8GHB1C8LLWmz8ouhqTsvoF6.png",
