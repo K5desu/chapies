@@ -44,9 +44,9 @@ export async function POST(request: Request) {
                       "回答 : "
                     );
                   await postLine(
-                    (parts && parts[1]) || "",
-                    "https://chapies.vercel.app/",
-                    "https://chapies.vercel.app/"
+                    (parts && parts[1]) || "aa",
+                    "https://jkweuq9mjmmniepb.public.blob.vercel-storage.com/Horizoico-AKahOCg8GHB1C8LLWmz8ouhqTsvoF6.png",
+                    "https://jkweuq9mjmmniepb.public.blob.vercel-storage.com/Horizoico-AKahOCg8GHB1C8LLWmz8ouhqTsvoF6.png"
                   );
                 }
 
