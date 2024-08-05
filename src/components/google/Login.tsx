@@ -1,7 +1,7 @@
 import React from "react";
 import { useSession, signIn } from "next-auth/react";
 import Load from "@/components/ui/load";
-
+import { GoogleIcon } from "../ui/icons";
 export default function Login() {
   const { data: session, status } = useSession();
 
@@ -9,14 +9,13 @@ export default function Login() {
     return <Load />;
   } else {
     return (
-      <div>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:shadow-xl transition duration-150 ease-in-out"
-          onClick={() => signIn("google", {}, { prompt: "login" })}
-        >
-          Googleでログイン
-        </button>
-      </div>
+      <button
+        className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3 "
+        onClick={() => signIn("google", {}, { prompt: "login" })}
+      >
+        <GoogleIcon />
+        <p className="hidden md:block">ログイン</p>
+      </button>
     );
   }
 }
