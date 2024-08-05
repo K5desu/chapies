@@ -21,10 +21,9 @@ model user {
   github  String?
   name    String
   comment String?
-  owner   Boolean
   image   String?   // ユーザー画像URLを格納するオプショナルフィールド
   articles article[]
-  likes   Like[]
+ 
 }
 
 model article {
@@ -37,16 +36,7 @@ model article {
   url      String
   userid   String  
   user     user     @relation(fields: [userid], references: [id])
-  likes    Like[]
+
 }
 
 // いいね機能を表すモデル
-model Like {
-  id        String   @id @default(uuid())
-  userId    String
-  articleId String
-  user      user     @relation(fields: [userId], references: [id])
-  article   article  @relation(fields: [articleId], references: [id])
-
-  @@unique([userId, articleId]) // 同じユーザーが同じ記事に複数回いいねを付けることを防ぐ
-}

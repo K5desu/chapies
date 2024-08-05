@@ -4,7 +4,6 @@ import * as React from "react";
 import { RyuAuthenticator } from "@/lib/ryu-authentcator";
 import { FacilityName } from "@/components/article/facility-name";
 import { FacilityTag } from "@/components/article/facility-tag";
-
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useSearchStore } from "@/store/article-store";
 import { Suspense } from "react";
