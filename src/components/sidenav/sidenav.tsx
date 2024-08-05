@@ -25,7 +25,7 @@ export default function SideNav() {
             <Link
               href="/mypage"
               className={`flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3  hover cursor-pointer ${
-                isActive ? "bg-red-100" : "bg-red-600"
+                isActive ? "bg-sky-100 text-blue-600" : "bg-gray-50"
               }`}
             >
               マイページ

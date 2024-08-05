@@ -27,7 +27,7 @@ export function FacilityTag(props: articleprops) {
       setArticleTag(value);
     }
   }
-  console.log(props);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

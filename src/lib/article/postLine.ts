@@ -5,21 +5,25 @@ import { config } from "@/lib/config";
 export default async function postLine(
   title: string,
   imgurl: string,
-  articleUrl: string
+  articleUrl: string,
+  action: string | null
 ) {
   if (config.channelAccessToken && config.channelSecret) {
     const client = new line.messagingApi.MessagingApiClient({
       channelAccessToken: config.channelAccessToken,
     });
     try {
-      await client.broadcast({
-        messages: [
-          {
-            type: "text",
-            text: "新しい記事が投稿されました",
-          },
-        ],
-      });
+      if (action) {
+        await client.broadcast({
+          messages: [
+            {
+              type: "text",
+              text: "新しい記事が投稿されました",
+            },
+          ],
+        });
+      }
+
       await client.broadcast({
         messages: [
           {
