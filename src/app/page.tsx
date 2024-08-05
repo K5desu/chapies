@@ -33,7 +33,7 @@ export default function Page() {
     replace(`${pathname}?${params.toString()}`);
   }, [name, searchtag]);
   return (
-    <div className="flex flex-col w-4/5 p-4   ">
+    <div className="flex flex-col w-full p-4   ">
       <div className="flex  flex-col items-end gap-y-8">
         {isRyu ? (
           <div>
