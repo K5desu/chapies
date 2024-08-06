@@ -56,7 +56,7 @@ export default function Page() {
         </div>
       </div>
       <div>
-        <h1 className="text-4xl font-extrabold mb-10  text-center text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-teal-400 ">
+        <h1 className="text-4xl font-extrabold mb-10 mt-5 text-center text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-teal-400 ">
           記事一覧
         </h1>
         <Suspense fallback={<Skeleton />}>
