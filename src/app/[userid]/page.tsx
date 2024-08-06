@@ -16,7 +16,7 @@ export default function Page({ params }: { params: { userid: string } }) {
         <section>
           <h2 className="text-xl font-bold mb-5">投稿記事</h2>
           <Suspense fallback={<Skeleton />}>
-            <Cards />
+            <Cards isRyu={false} />
           </Suspense>
         </section>
       </div>
