@@ -11,7 +11,7 @@ export async function CreateNewArticle(
       title,
       imgurl,
       articleUrl,
-      "https://chapies.vercel.app",
+      "https://chapies.vercel.app/",
       "create"
     );
   } catch (error) {
