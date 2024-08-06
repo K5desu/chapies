@@ -67,7 +67,7 @@ export default async function postLine(
                     action: {
                       type: "uri",
                       label: "Webサイトを見る",
-                      uri: articleUrl,
+                      uri: websiteUrl,
                     },
                   },
                   {
