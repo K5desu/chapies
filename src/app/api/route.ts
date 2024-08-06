@@ -47,7 +47,7 @@ export async function POST(request: Request) {
                     );
                   if (parts && parts[1]) {
                     await postLine(
-                      parts && parts[1],
+                      parts[1],
                       "https://jkweuq9mjmmniepb.public.blob.vercel-storage.com/Horizoico-AKahOCg8GHB1C8LLWmz8ouhqTsvoF6.png",
                       `https://chapies.vercel.app//?name=${parts[1]}`,
                       null

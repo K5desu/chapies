@@ -39,7 +39,7 @@ export default async function postLine(
                 aspectMode: "cover",
                 action: {
                   type: "uri",
-                  uri: "https://line.me/",
+                  uri: articleUrl,
                 },
               },
               body: {
