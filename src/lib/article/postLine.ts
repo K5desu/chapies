@@ -6,6 +6,7 @@ export default async function postLine(
   title: string,
   imgurl: string,
   articleUrl: string,
+  websiteUrl: string,
   action: string | null
 ) {
   if (config.channelAccessToken && config.channelSecret) {
@@ -39,7 +40,7 @@ export default async function postLine(
                 aspectMode: "cover",
                 action: {
                   type: "uri",
-                  uri: "https://line.me/",
+                  uri: articleUrl,
                 },
               },
               body: {
@@ -66,7 +67,7 @@ export default async function postLine(
                     action: {
                       type: "uri",
                       label: "Webサイトを見る",
-                      uri: articleUrl,
+                      uri: websiteUrl,
                     },
                   },
                   {

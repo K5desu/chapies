@@ -49,6 +49,7 @@ export async function POST(request: Request) {
                     await postLine(
                       parts[1],
                       "https://jkweuq9mjmmniepb.public.blob.vercel-storage.com/Horizoico-AKahOCg8GHB1C8LLWmz8ouhqTsvoF6.png",
+                      "https://foggy-direction-f3b.notion.site/f85c7d52dfcc4f3fbc0ec9ddbea839d8?pvs=4",
                       `https://chapies.vercel.app/?name=${parts[1]}`,
                       null
                     );
