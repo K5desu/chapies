@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { EditProfile } from "@/components/mypage/edit-profile";
+import { Label } from "@/components/ui/label";
 
 export default function Profile(props: {
   userId: string | null;
@@ -29,9 +30,31 @@ export default function Profile(props: {
           <p className="mt-2">{user.message}</p>
           <h2 className="text-xl font-bold">連絡先</h2>
 
+          <Label>insta</Label>
+
+          <a
+            href={user.insta}
+            className="block text-blue-500 hover:text-blue-700 underline"
+            id="terms"
+          >
+            {user.github}
+          </a>
+          <Label>X</Label>
+
+          <a
+            href={user.insta}
+            className="block text-blue-500 hover:text-blue-700 underline"
+            id="terms"
+          >
+            {user.x}
+          </a>
+
+          <Label>github</Label>
+
           <a
             href={user.github}
             className="block text-blue-500 hover:text-blue-700 underline"
+            id="terms"
           >
             {user.github}
           </a>
