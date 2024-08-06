@@ -8,6 +8,7 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useSearchStore } from "@/store/article-store";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import NotRyuAlert from "@/components/google/notRyuAlert";
 import Cards from "@/components/ui/cards";
 export default function Page() {
   const isRyu = RyuAuthenticator();
@@ -45,10 +46,8 @@ export default function Page() {
             </Link>
           </div>
         ) : (
-          <div>
-            <p>
-              あなたはログインしていないor認められたアカウントではないので記事の閲覧のみ可能です
-            </p>
+          <div className="mx-auto">
+            <NotRyuAlert message=" あなたはログインしていないor龍大アカウントではないので記事の閲覧のみ可能です" />
           </div>
         )}
         <div className="flex justify-center gap-x-4">
@@ -61,7 +60,7 @@ export default function Page() {
           記事一覧
         </h1>
         <Suspense fallback={<Skeleton />}>
-          <Cards />
+          <Cards isRyu={isRyu} />
         </Suspense>
       </div>
     </div>

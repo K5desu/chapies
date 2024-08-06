@@ -4,7 +4,7 @@ import Profile from "@/components/ui/profile";
 import Logout from "@/components/google/Logout";
 import { RyuAuthenticator } from "@/lib/ryu-authentcator";
 import { Skeleton } from "@/components/ui/skeleton";
-
+import NotRyuAlert from "@/components/google/notRyuAlert";
 import Cards from "@/components/ui/cards";
 export default function Page() {
   const isRyu = RyuAuthenticator();
@@ -23,15 +23,13 @@ export default function Page() {
             <h2 className="text-xl font-bold mb-5">投稿記事</h2>
 
             <Suspense fallback={<Skeleton />}>
-              <Cards />
+              <Cards isRyu={false} />
             </Suspense>
           </section>
         </div>
       ) : (
         <div>
-          <p>
-            あなたはログインしていないor認められたアカウントではないのでマイページの利用はできません
-          </p>
+          <NotRyuAlert message=" あなたはログインしていないor認められたアカウントではないのでマイページの利用はできません" />
         </div>
       )}
     </>

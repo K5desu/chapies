@@ -12,6 +12,7 @@ import { useToast } from "@/components/toast/use-toast";
 import { RyuAuthenticator } from "@/lib/ryu-authentcator";
 import Logout from "@/components/google/Logout";
 import { Button } from "@/components/ui/button";
+import NotRyuAlert from "@/components/google/notRyuAlert";
 export default function Page() {
   const isRyu = RyuAuthenticator();
   const { toast } = useToast();
@@ -39,11 +40,13 @@ export default function Page() {
   return (
     <>
       {isRyu ? (
-        <form action={handleSubmit}>
-          <Input placeholder="notionのurl"></Input>
+        <form action={handleSubmit} className="flex flex-col gap-y-4">
+          <Input placeholder="外部の記事のurl"></Input>
           <Input type="file" ref={inputFileRef} required />
-          <FacilityName action="create" />
-          <FacilityTag action="create" />
+          <div className="flex gap-x-4">
+            <FacilityName action="create" />
+            <FacilityTag action="create" />
+          </div>
           <Textarea
             onChange={(e) => {
               setArticleContent(e.target.value);
@@ -55,7 +58,7 @@ export default function Page() {
         </form>
       ) : (
         <div>
-          <p>あなたはログインしていないor認められたアカウントではありません</p>
+          <NotRyuAlert message=" あなたはログインしていないor認められたアカウントではないので記事の閲覧のみ可能です" />
           <Logout />
         </div>
       )}

@@ -1,6 +1,6 @@
 import Card from "@/components/ui/card";
 import { articleCard } from "@/lib/type";
-export default function Cards() {
+export default function Cards(props: { isRyu: boolean }) {
   const posts: articleCard[] = [
     {
       title: "Reactの基本",
@@ -61,6 +61,7 @@ export default function Cards() {
           img="https://s3-ap-northeast-1.amazonaws.com/xlab-leica-microsystems/wordpress/wp-content/uploads/title.jpg"
           url="/"
           userid="/1"
+          isRyu={props.isRyu}
           key={index}
         />
       ))}

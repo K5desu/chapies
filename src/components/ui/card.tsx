@@ -8,6 +8,7 @@ interface CardProps {
   img: string;
   url: string;
   userid: string;
+  isRyu: boolean;
 }
 
 export default async function Card({
@@ -17,6 +18,7 @@ export default async function Card({
   img,
   url,
   userid,
+  isRyu,
 }: CardProps) {
   const like = true;
   return (
@@ -33,12 +35,21 @@ export default async function Card({
               {tags}
             </span>
             <div className="flex justify-between">
-              <Link href={userid}>
-                <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                  <AvatarFallback></AvatarFallback>
-                </Avatar>
-              </Link>
+              {isRyu ? (
+                <Link href={userid}>
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback></AvatarFallback>
+                  </Avatar>
+                </Link>
+              ) : (
+                <>
+                  <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback></AvatarFallback>
+                  </Avatar>
+                </>
+              )}
             </div>
           </div>
         </div>
