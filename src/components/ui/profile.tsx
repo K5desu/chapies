@@ -1,5 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { EditProfile } from "@/components/mypage/edit-profile";
+
 export default function Profile(props: {
   userId: string | null;
   userEmail: string | null;
@@ -9,7 +10,9 @@ export default function Profile(props: {
     name: "山田 太郎",
     iconUrl: "/user-icon.png",
     message: "フロントエンド開発が好きです！",
-    address: "https://github.com/K5desu",
+    insta: "https://www.instagram.com/",
+    x: "https://x.com/",
+    github: "https://github.com/K5desu",
   };
   return (
     <div className="text-center h-auto">
@@ -25,14 +28,18 @@ export default function Profile(props: {
 
           <p className="mt-2">{user.message}</p>
           <h2 className="text-xl font-bold">連絡先</h2>
-          <a href={user.address} className="block">
-            {user.address}
+
+          <a
+            href={user.github}
+            className="block text-blue-500 hover:text-blue-700 underline"
+          >
+            {user.github}
           </a>
           {props.IsRyu && (
             <EditProfile
               name={user.name}
               message={user.message}
-              useraddress={user.address}
+              useraddress={user.github}
             />
           )}
         </section>

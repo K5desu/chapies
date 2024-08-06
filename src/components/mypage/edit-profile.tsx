@@ -47,12 +47,31 @@ export function EditProfile(props: {
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="username" className="text-right">
-              連絡先
+              インスタ
             </Label>
             <Input
               id="useraccount"
               defaultValue={props.useraddress}
               className="col-span-3"
+              placeholder="インスタアカウント"
+            />
+            <Label htmlFor="username" className="text-right">
+              X
+            </Label>
+            <Input
+              id="useraccount"
+              defaultValue={props.useraddress}
+              className="col-span-3"
+              placeholder="Xアカウント"
+            />
+            <Label htmlFor="username" className="text-right">
+              github
+            </Label>
+            <Input
+              id="useraccount"
+              defaultValue={props.useraddress}
+              className="col-span-3"
+              placeholder="githubアカウント"
             />
           </div>
         </div>
