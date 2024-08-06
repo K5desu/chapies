@@ -10,7 +10,6 @@ interface CardProps {
   userid: string;
   isRyu: boolean;
 }
-
 export default async function Card({
   title,
   content,

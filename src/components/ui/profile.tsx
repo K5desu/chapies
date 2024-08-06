@@ -1,6 +1,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { EditProfile } from "@/components/mypage/edit-profile";
-export default function Profile() {
+export default function Profile(props: {
+  userId: string | null;
+  userEmail: string | null;
+  IsRyu: boolean;
+}) {
   const user = {
     name: "山田 太郎",
     iconUrl: "/user-icon.png",
@@ -24,12 +28,13 @@ export default function Profile() {
           <a href={user.address} className="block">
             {user.address}
           </a>
-
-          <EditProfile
-            name={user.name}
-            message={user.message}
-            useraddress={user.address}
-          />
+          {props.IsRyu && (
+            <EditProfile
+              name={user.name}
+              message={user.message}
+              useraddress={user.address}
+            />
+          )}
         </section>
       </div>
     </div>

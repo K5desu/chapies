@@ -2,7 +2,7 @@
 
 import type { PutBlobResult } from "@vercel/blob";
 import { CreateNewArticle } from "@/app/api/article/createNewArticle";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { FacilityName } from "@/components/article/facility-name";
 import { FacilityTag } from "@/components/article/facility-tag";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import NotRyuAlert from "@/components/google/notRyuAlert";
 export default function Page() {
   const isRyu = RyuAuthenticator();
+  const [articleUrl, setArticleUrl] = useState("");
   const { toast } = useToast();
   const { title, content, setArticleContent } = useArticleStore();
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -29,7 +30,7 @@ export default function Page() {
       body: file,
     });
     const newBlob = (await response.json()) as PutBlobResult;
-    await CreateNewArticle(title, newBlob.url);
+    await CreateNewArticle(title, newBlob.url, articleUrl);
     toast({
       title: "記事が投稿されました",
       description:
@@ -41,7 +42,11 @@ export default function Page() {
     <>
       {isRyu ? (
         <form action={handleSubmit} className="flex flex-col gap-y-4">
-          <Input placeholder="外部の記事のurl"></Input>
+          <Input
+            placeholder="外部の記事のurl"
+            value={articleUrl}
+            onChange={(e) => setArticleUrl(e.target.value)}
+          ></Input>
           <Input type="file" ref={inputFileRef} required />
           <div className="flex gap-x-4">
             <FacilityName action="create" />
