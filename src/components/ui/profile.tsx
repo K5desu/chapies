@@ -24,7 +24,7 @@ export default function Profile(props: {
 
       <div>
         <h1 className="text-3xl font-bold mt-3">{user.name}</h1>
-        <section className="mb-10">
+        <section className="mb-2">
           <h2 className="text-xl font-bold">一言メッセージ</h2>
 
           <p className="mt-2">{user.message}</p>
@@ -53,7 +53,7 @@ export default function Profile(props: {
 
           <a
             href={user.github}
-            className="block text-blue-500 hover:text-blue-700 underline"
+            className="block text-blue-500 hover:text-blue-700 underline mb-2"
             id="terms"
           >
             {user.github}

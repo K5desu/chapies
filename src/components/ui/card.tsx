@@ -8,6 +8,7 @@ interface CardProps {
   img: string;
   url: string;
   userid: string;
+  userimg: string;
   isRyu: boolean;
 }
 export default async function Card({
@@ -17,6 +18,7 @@ export default async function Card({
   img,
   url,
   userid,
+  userimg,
   isRyu,
 }: CardProps) {
   const like = true;
@@ -48,7 +50,7 @@ export default async function Card({
               ) : (
                 <>
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage src={userimg} />
                     <AvatarFallback></AvatarFallback>
                   </Avatar>
                 </>

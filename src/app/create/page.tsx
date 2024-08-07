@@ -99,6 +99,7 @@ export default function Page() {
               img={imageUrl}
               url={articleUrl}
               userid="1"
+              userimg=""
               isRyu={true}
             />
           </div>

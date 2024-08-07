@@ -61,6 +61,7 @@ export default function Cards(props: { isRyu: boolean }) {
           img="https://s3-ap-northeast-1.amazonaws.com/xlab-leica-microsystems/wordpress/wp-content/uploads/title.jpg"
           url="/"
           userid="/1"
+          userimg="/annonymous.jpg"
           isRyu={props.isRyu}
           key={index}
         />

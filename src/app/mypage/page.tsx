@@ -17,7 +17,7 @@ export default function Page() {
     <>
       {isRyu ? (
         <div className="max-w-4xl mx-auto p-5 ">
-          <div className=" flex flex-col items-center">
+          <div className=" flex flex-col items-center ">
             <Profile
               userId={null}
               userEmail={
@@ -32,7 +32,7 @@ export default function Page() {
             <h2 className="text-xl font-bold mb-5">投稿記事</h2>
 
             <Suspense fallback={<Skeleton />}>
-              <Cards isRyu={false} />
+              <Cards isRyu={isRyu} />
             </Suspense>
           </section>
         </div>
