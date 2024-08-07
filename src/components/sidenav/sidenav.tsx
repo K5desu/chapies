@@ -1,15 +1,12 @@
 "use client";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 import NavLinks from "@/components/sidenav/navlinks";
 import Image from "next/image";
 export default function SideNav() {
-  const pathname = usePathname();
-
   return (
     <div className="flex h-full flex-col px-3 py-4 md:px-2 justify-between">
       <Link
-        className="mb-2 flex h-20 items-end justify-start rounded-md bg-sky-100 p-4 md:h-40"
+        className="mb-2 flex h-20 items-end justify-start rounded-md bg-red-100 p-4 md:h-40"
         href="/"
       >
         <Image
