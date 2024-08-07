@@ -85,6 +85,14 @@ export default async function postLine(
         });
         return "ok";
       } else {
+        await client.broadcast({
+          messages: [
+            {
+              type: "text",
+              text: "新しい記事が投稿されました",
+            },
+          ],
+        });
         await client.replyMessage({
           replyToken: action,
           messages: [
