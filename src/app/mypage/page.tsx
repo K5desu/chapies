@@ -12,7 +12,6 @@ export default function Page() {
   const { data: session } = useSession();
 
   // 仮のユーザーデータと投稿データ
-
   return (
     <>
       {isRyu ? (
