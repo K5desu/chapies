@@ -4,7 +4,7 @@ import Cards from "@/components/ui/cards";
 import Profile from "@/components/ui/profile";
 import { articleCard, user } from "@/lib/type";
 import { RyuAuthenticator } from "@/lib/ryu-authentcator";
-import getArticlesAndUserByUserId from "@/app/api/article/getArticlesAndUserByEmail";
+import getArticlesAndUserByUserId from "@/app/api/article/getArticleByUserId";
 import { CardsSkeleton } from "@/components/ui/cardSkeleton";
 export default function Page({ params }: { params: { userid: string } }) {
   // 仮のユーザーデータと投稿データ
