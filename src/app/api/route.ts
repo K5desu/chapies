@@ -46,13 +46,65 @@ export async function POST(request: Request) {
                       "回答："
                     );
                   if (parts && parts[1]) {
-                    await postLine(
-                      parts[1],
-                      "https://jkweuq9mjmmniepb.public.blob.vercel-storage.com/Horizoico-AKahOCg8GHB1C8LLWmz8ouhqTsvoF6.png",
-                      "https://foggy-direction-f3b.notion.site/f85c7d52dfcc4f3fbc0ec9ddbea839d8?pvs=4",
-                      "https://chapies.vercel.app/",
-                      event.replyToken
-                    );
+                    await client.replyMessage({
+                      replyToken: event.replyToken,
+                      messages: [
+                        {
+                          type: "flex",
+                          altText: "This is a Flex Message",
+                          contents: {
+                            type: "bubble",
+                            hero: {
+                              type: "image",
+                              url: "https://jkweuq9mjmmniepb.public.blob.vercel-storage.com/Horizoico-AKahOCg8GHB1C8LLWmz8ouhqTsvoF6.png",
+                              size: "full",
+                              aspectRatio: "20:13",
+                              aspectMode: "cover",
+                              action: {
+                                type: "uri",
+                                uri: "https://foggy-direction-f3b.notion.site/f85c7d52dfcc4f3fbc0ec9ddbea839d8?pvs=4",
+                              },
+                            },
+                            body: {
+                              type: "box",
+                              layout: "vertical",
+                              contents: [
+                                {
+                                  type: "text",
+                                  text: parts[1],
+                                  weight: "bold",
+                                  size: "xl",
+                                },
+                              ],
+                            },
+                            footer: {
+                              type: "box",
+                              layout: "vertical",
+                              spacing: "sm",
+                              contents: [
+                                {
+                                  type: "button",
+                                  style: "link",
+                                  height: "sm",
+                                  action: {
+                                    type: "uri",
+                                    label: "Webサイトを見る",
+                                    uri: "https://chapies.vercel.app/",
+                                  },
+                                },
+                                {
+                                  type: "box",
+                                  layout: "vertical",
+                                  contents: [],
+                                  margin: "sm",
+                                },
+                              ],
+                              flex: 0,
+                            },
+                          },
+                        },
+                      ],
+                    });
                   }
                 }
 
