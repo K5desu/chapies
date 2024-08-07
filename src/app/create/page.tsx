@@ -131,14 +131,16 @@ export default function Page() {
           />
           <div className="md:mx-auto">
             <Card
+              id="1"
               title={title}
               content={content}
               tags={tag}
               img={imageUrl}
               url={articleUrl}
               userid="1"
-              userimg=""
+              image=""
               campas={campas}
+              name="shadcn"
               isRyu={true}
             />
           </div>

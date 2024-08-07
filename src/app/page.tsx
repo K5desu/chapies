@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { articleCard } from "@/lib/type";
+import { articleCard, articleUser } from "@/lib/type";
 import { RyuAuthenticator } from "@/lib/ryu-authentcator";
 import { FacilityName } from "@/components/article/facility-name";
 import { FacilityTag } from "@/components/article/facility-tag";
@@ -15,7 +15,9 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const isRyu = RyuAuthenticator();
   const searchParams = useSearchParams();
-  const articlesRef = useRef<articleCard[] | undefined | null>([]);
+  const articlesRef = useRef<(articleCard & articleUser)[] | undefined | null>(
+    null
+  );
   const { name, searchtag } = useSearchStore();
   const pathname = usePathname();
   const { replace } = useRouter();

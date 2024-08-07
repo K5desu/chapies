@@ -2,17 +2,9 @@ import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-interface CardProps {
-  title: string;
-  content: string;
-  tags: string;
-  img: string;
-  url: string;
-  userid: string;
-  userimg: string;
-  campas: boolean;
-  isRyu: boolean;
-}
+import { articleCard, articleUser } from "@/lib/type";
+type CardProps = articleCard & articleUser;
+
 export default async function Card({
   title,
   content,
@@ -20,22 +12,23 @@ export default async function Card({
   img,
   url,
   userid,
-  userimg,
+  image,
   campas,
+  name,
   isRyu,
-}: CardProps) {
+}: CardProps & { isRyu: boolean }) {
   const like = true;
   return (
     <>
-      <Link href={url}>
-        <div className="max-w-sm max-h-[380px] rounded overflow-hidden shadow-lg">
+      <Link href={url || "/"}>
+        <div className="max-w-[300px] max-h-[400px] rounded overflow-hidden shadow-lg">
           <img
             className="w-full max-h-[250px]"
             src={img}
             alt="Sunset in the mountains"
           />
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">{title}</div>
+          <div className="px-6 py-4 max-h-[80px]">
+            <div className="font-bold text-xl ">{title}</div>
             <p className="text-gray-700 text-base">{content}</p>
           </div>
           <div className="px-6 pt-4 pb-2">
@@ -50,16 +43,19 @@ export default async function Card({
 
             <div className="flex justify-between">
               {isRyu ? (
-                <Link href={userid}>
+                <Link href={userid} className="flex gap-x-3">
                   <Avatar>
                     <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback></AvatarFallback>
                   </Avatar>
+                  <p className="text-gray-700 text-base mt-3 font-bold">
+                    {name}
+                  </p>
                 </Link>
               ) : (
                 <>
                   <Avatar>
-                    <AvatarImage src={userimg} />
+                    <AvatarImage src="/annonymous" />
                     <AvatarFallback></AvatarFallback>
                   </Avatar>
                 </>

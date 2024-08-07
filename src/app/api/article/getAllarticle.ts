@@ -1,11 +1,19 @@
 "use server";
 import prisma from "@/lib/prisma";
-
-const getAllarticle = async () => {
+import { articleUser, articleCard } from "@/lib/type";
+export default async function getAllarticle(): Promise<
+  (articleCard & articleUser)[]
+> {
   try {
     const articles = await prisma.article.findMany({
       include: {
-        user: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+          },
+        },
       },
     });
     return articles;
@@ -13,6 +21,4 @@ const getAllarticle = async () => {
     console.error("Error retrieving articles:", error);
     throw error;
   }
-};
-
-export default getAllarticle;
+}

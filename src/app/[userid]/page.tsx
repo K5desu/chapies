@@ -2,19 +2,19 @@
 import { useEffect, useRef, useState } from "react";
 import Cards from "@/components/ui/cards";
 import Profile from "@/components/ui/profile";
-import { articleCard } from "@/lib/type";
+import { articleCard, user } from "@/lib/type";
 import { RyuAuthenticator } from "@/lib/ryu-authentcator";
-import getArticlesByUserId from "@/app/api/article/getArticleByUserId";
+import getArticlesAndUserByUserId from "@/app/api/article/getArticlesAndUserByEmail";
 import { CardsSkeleton } from "@/components/ui/cardSkeleton";
 export default function Page({ params }: { params: { userid: string } }) {
   // 仮のユーザーデータと投稿データ
   const [loading, setLoading] = useState(false);
-  const articlesRef = useRef<articleCard[] | undefined | null>([]);
+  const articlesRef = useRef<(user & { articles: articleCard[] }) | null>(null);
   const isRyu = RyuAuthenticator();
   useEffect(() => {
     async function fetchData() {
       if (isRyu) {
-        articlesRef.current = await getArticlesByUserId(params.userid);
+        articlesRef.current = await getArticlesAndUserByUserId(params.userid);
         // articlesを使用して何かを行う
         setLoading(true);
       }
@@ -27,11 +27,25 @@ export default function Page({ params }: { params: { userid: string } }) {
   return (
     <>
       <div className="max-w-4xl mx-auto p-5">
-        <Profile userId={params.userid} userEmail={null} IsRyu={isRyu} />
+        <Profile userId={params.userid} userEmail={null} IsRyu={false} />
         <section>
           <h2 className="text-xl font-bold mb-5">投稿記事</h2>
           {loading ? (
-            <Cards isRyu={isRyu} posts={articlesRef.current} />
+            <Cards
+              isRyu={isRyu}
+              posts={
+                articlesRef.current &&
+                (() => {
+                  const { name, image, id, articles } = articlesRef.current;
+                  return articles.map((article) => ({
+                    ...article,
+                    name,
+                    image,
+                    id,
+                  }));
+                })()
+              }
+            />
           ) : (
             <CardsSkeleton />
           )}
