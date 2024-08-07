@@ -18,19 +18,31 @@ export default function Page() {
   const articlesRef = useRef<(articleCard & articleUser)[] | undefined | null>(
     null
   );
+  const filterArticlesRef = useRef<
+    (articleCard & articleUser)[] | undefined | null
+  >(null);
+
   const { name, searchtag } = useSearchStore();
   const pathname = usePathname();
   const { replace } = useRouter();
-  const articleId = searchParams.get("id");
-  const articleName = searchParams.get("name");
-  const articleTag = searchParams.get("tag");
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
+
     if (name) {
       params.set("name", name);
+      if (articlesRef.current) {
+        filterArticlesRef.current = articlesRef.current.filter(
+          (article) => article.title === name
+        );
+      }
     }
     if (searchtag) {
       params.set("tag", searchtag);
+      if (articlesRef.current) {
+        filterArticlesRef.current = articlesRef.current.filter(
+          (article) => article.tags === searchtag
+        );
+      }
     }
     if (!name && !searchtag) {
       params.delete("name");
@@ -41,6 +53,7 @@ export default function Page() {
   useEffect(() => {
     async function fetchData() {
       articlesRef.current = await getAllarticle();
+      filterArticlesRef.current = articlesRef.current;
       setLoading(true);
       // articlesを使用して何かを行う
     }
@@ -73,7 +86,7 @@ export default function Page() {
           記事一覧
         </h1>
         {loading ? (
-          <Cards isRyu={isRyu} posts={articlesRef.current} />
+          <Cards isRyu={isRyu} posts={filterArticlesRef.current} />
         ) : (
           <CardsSkeleton />
         )}
