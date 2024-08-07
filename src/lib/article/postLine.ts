@@ -14,7 +14,7 @@ export default async function postLine(
       channelAccessToken: config.channelAccessToken,
     });
     try {
-      if (action) {
+      if (action === "create") {
         await client.broadcast({
           messages: [
             {
