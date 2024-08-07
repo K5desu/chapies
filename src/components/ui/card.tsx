@@ -55,7 +55,7 @@ export default async function Card({
               ) : (
                 <>
                   <Avatar>
-                    <AvatarImage src="/annonymous" />
+                    <AvatarImage src="/annonymous.jpg" />
                     <AvatarFallback></AvatarFallback>
                   </Avatar>
                 </>
