@@ -1,12 +1,27 @@
 "use client";
-import React, { Suspense } from "react";
+import { useEffect, useRef, useState } from "react";
 import Cards from "@/components/ui/cards";
 import Profile from "@/components/ui/profile";
-import { Skeleton } from "@/components/ui/skeleton";
+import { articleCard } from "@/lib/type";
 import { RyuAuthenticator } from "@/lib/ryu-authentcator";
+import getArticlesByUserId from "@/app/api/article/getArticleByUserId";
+import { CardsSkeleton } from "@/components/ui/cardSkeleton";
 export default function Page({ params }: { params: { userid: string } }) {
   // 仮のユーザーデータと投稿データ
+  const [loading, setLoading] = useState(false);
+  const articlesRef = useRef<articleCard[] | undefined | null>([]);
   const isRyu = RyuAuthenticator();
+  useEffect(() => {
+    async function fetchData() {
+      if (isRyu) {
+        articlesRef.current = await getArticlesByUserId(params.userid);
+        // articlesを使用して何かを行う
+        setLoading(true);
+      }
+    }
+    fetchData();
+  }, [isRyu]);
+
   if (!isRyu) return <div>大学アカウントでログインしてください</div>;
 
   return (
@@ -15,9 +30,11 @@ export default function Page({ params }: { params: { userid: string } }) {
         <Profile userId={params.userid} userEmail={null} IsRyu={isRyu} />
         <section>
           <h2 className="text-xl font-bold mb-5">投稿記事</h2>
-          <Suspense fallback={<Skeleton />}>
-            <Cards isRyu={false} />
-          </Suspense>
+          {loading ? (
+            <Cards isRyu={isRyu} posts={articlesRef.current} />
+          ) : (
+            <CardsSkeleton />
+          )}
         </section>
       </div>
     </>

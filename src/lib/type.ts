@@ -5,7 +5,8 @@ export type articleCard = {
   title: string;
   content: string;
   tags: string;
+  campas: boolean;
   img: string;
-  url: string;
+  url: string | null;
   userid: string;
 };

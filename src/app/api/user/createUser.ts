@@ -11,7 +11,6 @@ async function createUser(email: string, image: string) {
     });
 
     if (existingUser) {
-      console.log("User already exists:", existingUser);
       return existingUser;
     }
 
@@ -23,10 +22,9 @@ async function createUser(email: string, image: string) {
       },
     });
 
-    console.log("User created:", user);
     return user;
   } catch (error) {
-    console.error("Error creating user:", error);
+    throw new Error(`Error creating user: ${error}`);
   }
 }
 

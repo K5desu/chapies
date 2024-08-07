@@ -2,7 +2,9 @@
 
 import type { PutBlobResult } from "@vercel/blob";
 import { CreateNewArticle } from "@/app/api/article/createNewArticle";
-import { useRef, useState } from "react";
+import createUser from "@/app/api/user/createUser";
+import { useRef, useState, useEffect } from "react";
+import { useDebouncedCallback } from "use-debounce";
 import { FacilityName } from "@/components/article/facility-name";
 import { FacilityTag } from "@/components/article/facility-tag";
 import { Input } from "@/components/ui/input";
@@ -16,14 +18,20 @@ import Card from "@/components/ui/card";
 import NotRyuAlert from "@/components/google/notRyuAlert";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { useSession } from "next-auth/react";
+import createArticleByEmail from "@/app/api/article/createArticleByEmail";
 export default function Page() {
   const [imageUrl, setImageUrl] = useState("");
+  const { data: session } = useSession();
   const isRyu = RyuAuthenticator();
   const [articleUrl, setArticleUrl] = useState("");
   const { toast } = useToast();
   const { title, content, setArticleContent, tag } = useArticleStore();
   const [campas, setCampas] = useState(true);
   const inputFileRef = useRef<HTMLInputElement>(null);
+  const textareaHandler = useDebouncedCallback((term) => {
+    setArticleContent(term);
+  }, 2000);
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
     if (file) {
@@ -46,6 +54,11 @@ export default function Page() {
       reader.readAsDataURL(file);
     }
   };
+  useEffect(() => {
+    if (isRyu && session && session.user?.email && session.user?.image) {
+      createUser(session.user.email, session.user.image);
+    }
+  }, [session, isRyu]);
   async function handleSubmit() {
     if (!inputFileRef.current?.files) {
       throw new Error("No file selected");
@@ -58,6 +71,16 @@ export default function Page() {
     });
     const newBlob = (await response.json()) as PutBlobResult;
     await CreateNewArticle(title, newBlob.url, articleUrl);
+    if (session?.user?.email)
+      await createArticleByEmail(
+        session.user.email,
+        title,
+        content,
+        tag,
+        campas,
+        newBlob.url,
+        articleUrl
+      );
     toast({
       title: "記事が投稿されました",
       description:
@@ -103,10 +126,7 @@ export default function Page() {
             </RadioGroup>
           </div>
           <Textarea
-            onChange={(e) => {
-              setArticleContent(e.target.value);
-            }}
-            value={content}
+            onChange={(e) => textareaHandler(e.target.value)}
             placeholder="Content"
           />
           <div className="md:mx-auto">

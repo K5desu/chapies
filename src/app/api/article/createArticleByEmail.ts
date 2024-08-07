@@ -2,7 +2,6 @@
 import prisma from "@/lib/prisma";
 
 async function createArticleByEmail(
-  id: string,
   mail: string,
   title: string,
   content: string,
@@ -26,21 +25,19 @@ async function createArticleByEmail(
     // Create the article using the user's ID
     const article = await prisma.article.create({
       data: {
-        id: id,
-        userid: user.id,
         title: title,
         content: content,
         tags: tags,
         campas: campas,
         img: img,
         url: url,
+        userid: user.id,
       },
     });
 
     return article;
   } catch (error) {
-    console.error("Error creating article:", error);
-    throw error;
+    throw new Error("Error creating article:");
   }
 }
 
