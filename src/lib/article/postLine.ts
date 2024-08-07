@@ -7,7 +7,7 @@ export default async function postLine(
   imgurl: string,
   articleUrl: string,
   websiteUrl: string,
-  action: string | null
+  action: string | null | any
 ) {
   if (config.channelAccessToken && config.channelSecret) {
     const client = new line.messagingApi.MessagingApiClient({
@@ -24,66 +24,128 @@ export default async function postLine(
           ],
         });
       }
-
-      await client.broadcast({
-        messages: [
-          {
-            type: "flex",
-            altText: "This is a Flex Message",
-            contents: {
-              type: "bubble",
-              hero: {
-                type: "image",
-                url: imgurl,
-                size: "full",
-                aspectRatio: "20:13",
-                aspectMode: "cover",
-                action: {
-                  type: "uri",
-                  uri: articleUrl,
+      if (action === "create") {
+        await client.broadcast({
+          messages: [
+            {
+              type: "flex",
+              altText: "This is a Flex Message",
+              contents: {
+                type: "bubble",
+                hero: {
+                  type: "image",
+                  url: imgurl,
+                  size: "full",
+                  aspectRatio: "20:13",
+                  aspectMode: "cover",
+                  action: {
+                    type: "uri",
+                    uri: articleUrl,
+                  },
+                },
+                body: {
+                  type: "box",
+                  layout: "vertical",
+                  contents: [
+                    {
+                      type: "text",
+                      text: title,
+                      weight: "bold",
+                      size: "xl",
+                    },
+                  ],
+                },
+                footer: {
+                  type: "box",
+                  layout: "vertical",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "button",
+                      style: "link",
+                      height: "sm",
+                      action: {
+                        type: "uri",
+                        label: "Webサイトを見る",
+                        uri: websiteUrl,
+                      },
+                    },
+                    {
+                      type: "box",
+                      layout: "vertical",
+                      contents: [],
+                      margin: "sm",
+                    },
+                  ],
+                  flex: 0,
                 },
               },
-              body: {
-                type: "box",
-                layout: "vertical",
-                contents: [
-                  {
-                    type: "text",
-                    text: title,
-                    weight: "bold",
-                    size: "xl",
+            },
+          ],
+        });
+        return "ok";
+      } else {
+        await client.replyMessage({
+          replyToken: action,
+          messages: [
+            {
+              type: "flex",
+              altText: "This is a Flex Message",
+              contents: {
+                type: "bubble",
+                hero: {
+                  type: "image",
+                  url: imgurl,
+                  size: "full",
+                  aspectRatio: "20:13",
+                  aspectMode: "cover",
+                  action: {
+                    type: "uri",
+                    uri: articleUrl,
                   },
-                ],
-              },
-              footer: {
-                type: "box",
-                layout: "vertical",
-                spacing: "sm",
-                contents: [
-                  {
-                    type: "button",
-                    style: "link",
-                    height: "sm",
-                    action: {
-                      type: "uri",
-                      label: "Webサイトを見る",
-                      uri: websiteUrl,
+                },
+                body: {
+                  type: "box",
+                  layout: "vertical",
+                  contents: [
+                    {
+                      type: "text",
+                      text: title,
+                      weight: "bold",
+                      size: "xl",
                     },
-                  },
-                  {
-                    type: "box",
-                    layout: "vertical",
-                    contents: [],
-                    margin: "sm",
-                  },
-                ],
-                flex: 0,
+                  ],
+                },
+                footer: {
+                  type: "box",
+                  layout: "vertical",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "button",
+                      style: "link",
+                      height: "sm",
+                      action: {
+                        type: "uri",
+                        label: "Webサイトを見る",
+                        uri: websiteUrl,
+                      },
+                    },
+                    {
+                      type: "box",
+                      layout: "vertical",
+                      contents: [],
+                      margin: "sm",
+                    },
+                  ],
+                  flex: 0,
+                },
               },
             },
-          },
-        ],
-      });
-      return "ok";
+          ],
+        });
+        return "ok";
+      }
     } catch (e) {
       throw new Error("Error");
     }
