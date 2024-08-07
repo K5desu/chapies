@@ -40,11 +40,9 @@ export default function Page() {
   }, [name, searchtag]);
   useEffect(() => {
     async function fetchData() {
-      if (isRyu) {
-        articlesRef.current = await getAllarticle();
-        setLoading(true);
-        // articlesを使用して何かを行う
-      }
+      articlesRef.current = await getAllarticle();
+      setLoading(true);
+      // articlesを使用して何かを行う
     }
     fetchData();
   }, [isRyu]);
