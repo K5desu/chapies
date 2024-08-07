@@ -62,6 +62,7 @@ export default function Cards(props: { isRyu: boolean }) {
           url="/"
           userid="/1"
           userimg="/annonymous.jpg"
+          campas={false}
           isRyu={props.isRyu}
           key={index}
         />

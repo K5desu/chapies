@@ -14,6 +14,8 @@ import Logout from "@/components/google/Logout";
 import { Button } from "@/components/ui/button";
 import Card from "@/components/ui/card";
 import NotRyuAlert from "@/components/google/notRyuAlert";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export default function Page() {
   const [imageUrl, setImageUrl] = useState("");
@@ -21,7 +23,7 @@ export default function Page() {
   const [articleUrl, setArticleUrl] = useState("");
   const { toast } = useToast();
   const { title, content, setArticleContent, tag } = useArticleStore();
-
+  const [campas, setCampas] = useState(true);
   const inputFileRef = useRef<HTMLInputElement>(null);
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
@@ -63,7 +65,6 @@ export default function Page() {
         "新しい記事の投稿に成功しました。マイページを確認してください",
     });
   }
-
   return (
     <>
       {isRyu ? (
@@ -83,6 +84,24 @@ export default function Page() {
           <div className="flex gap-x-4">
             <FacilityName action="create" />
             <FacilityTag action="create" />
+            <RadioGroup
+              defaultValue="option-one"
+              onValueChange={() => {
+                setCampas(!campas);
+                console.log(campas);
+              }}
+            >
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="option-one" id="option-one" />
+                <Label htmlFor="option-one" onChange={() => setCampas(true)}>
+                  深草
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <RadioGroupItem value="option-two" id="option-two" />
+                <Label htmlFor="option-two">瀬田</Label>
+              </div>
+            </RadioGroup>
           </div>
           <Textarea
             onChange={(e) => {
@@ -100,6 +119,7 @@ export default function Page() {
               url={articleUrl}
               userid="1"
               userimg=""
+              campas={campas}
               isRyu={true}
             />
           </div>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 interface CardProps {
   title: string;
   content: string;
@@ -9,6 +10,7 @@ interface CardProps {
   url: string;
   userid: string;
   userimg: string;
+  campas: boolean;
   isRyu: boolean;
 }
 export default async function Card({
@@ -19,6 +21,7 @@ export default async function Card({
   url,
   userid,
   userimg,
+  campas,
   isRyu,
 }: CardProps) {
   const like = true;
@@ -39,6 +42,12 @@ export default async function Card({
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
               {tags}
             </span>
+            {campas ? (
+              <Badge variant="fcampas">深草</Badge>
+            ) : (
+              <Badge variant="scampas">瀬田</Badge>
+            )}
+
             <div className="flex justify-between">
               {isRyu ? (
                 <Link href={userid}>
