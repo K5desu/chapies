@@ -30,7 +30,7 @@ export default async function Card({
       <Link href={url}>
         <div className="max-w-sm max-h-[380px] rounded overflow-hidden shadow-lg">
           <img
-            className="w-full max-h-[200px]"
+            className="w-full max-h-[250px]"
             src={img}
             alt="Sunset in the mountains"
           />

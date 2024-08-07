@@ -16,7 +16,6 @@ import Card from "@/components/ui/card";
 import NotRyuAlert from "@/components/google/notRyuAlert";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-
 export default function Page() {
   const [imageUrl, setImageUrl] = useState("");
   const isRyu = RyuAuthenticator();

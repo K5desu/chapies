@@ -30,7 +30,6 @@ async function createArticleByEmail(
         userid: user.id,
         title: title,
         content: content,
-
         tags: tags,
         campas: campas,
         img: img,
