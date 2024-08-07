@@ -45,7 +45,7 @@ export default function Page() {
       // articlesを使用して何かを行う
     }
     fetchData();
-  }, [isRyu]);
+  }, []);
   return (
     <div className="flex flex-col w-full p-4   ">
       <div className="flex  flex-col items-end gap-y-8">
