@@ -1,28 +1,35 @@
 "use server";
 import prisma from "@/lib/prisma";
-import { error } from "console";
 
-export default async function updateUsernameByEmail(
-  email: string,
-  newUsername: string
+export default async function updateUserInfoByEmail(
+  mail: string,
+  newUsername: string,
+  newUsermessage: string,
+  newUserInstagram: string,
+  newUserX: string,
+  newUsergithub: string
 ) {
   try {
     const user = await prisma.user.findUnique({
       where: {
-        mail: email,
+        mail: mail,
       },
     });
 
     if (!user) {
-      throw error;
+      throw new Error("User not found");
     }
 
     const updatedUser = await prisma.user.update({
       where: {
-        mail: email,
+        mail: mail,
       },
       data: {
         name: newUsername,
+        message: newUsermessage,
+        instagram: newUserInstagram,
+        X: newUserX,
+        github: newUsergithub,
       },
     });
 

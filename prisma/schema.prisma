@@ -21,7 +21,8 @@ model user {
   github  String?
   name    String?
   comment String?
-  image   String?   // ユーザー画像URLを格納するオプショナルフィールド
+  image   String?
+  message String?   // ユーザー画像URLを格納するオプショナルフィールド
   articles article[]
  
 }

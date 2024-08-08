@@ -8,6 +8,7 @@ CREATE TABLE "user" (
     "name" TEXT,
     "comment" TEXT,
     "image" TEXT,
+    "message" TEXT,
 
     CONSTRAINT "user_pkey" PRIMARY KEY ("id")
 );

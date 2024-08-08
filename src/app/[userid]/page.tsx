@@ -21,17 +21,26 @@ export default function Page({ params }: { params: { userid: string } }) {
     }
     fetchData();
   }, [isRyu]);
+  const getUserInfo = () => {
+    if (articlesRef.current) {
+      const { articles, ...user } = articlesRef.current;
+      return user;
+    } else {
+      return null;
+    }
+  };
 
   if (!isRyu) return <div>大学アカウントでログインしてください</div>;
 
   return (
     <>
       <div className="max-w-4xl mx-auto p-5">
-        <Profile userId={params.userid} userEmail={null} IsRyu={false} />
+        <Profile {...getUserInfo()} IsRyu={isRyu} />
         <section>
           <h2 className="text-xl font-bold mb-5">投稿記事</h2>
           {loading ? (
             <Cards
+              owner={false}
               isRyu={isRyu}
               posts={
                 articlesRef.current &&

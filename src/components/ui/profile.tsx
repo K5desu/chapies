@@ -1,70 +1,75 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { EditProfile } from "@/components/mypage/edit-profile";
 import { Label } from "@/components/ui/label";
-
-export default function Profile(props: {
-  userId: string | null;
-  userEmail: string | null;
-  IsRyu: boolean;
-}) {
-  const user = {
-    name: "山田 太郎",
-    iconUrl: "/user-icon.png",
-    message: "フロントエンド開発が好きです！",
-    insta: "https://www.instagram.com/",
-    x: "https://x.com/",
-    github: "https://github.com/K5desu",
-  };
+import { user } from "@/lib/type";
+export default function Profile(props: (user & { IsRyu: boolean }) | null) {
   return (
-    <div className="text-center h-auto">
-      <Avatar>
+    <div className="flex flex-col items-center h-auto">
+      <Avatar className="w-1/5 h-1/5">
         <AvatarImage src="https://github.com/shadcn.png" />
         <AvatarFallback></AvatarFallback>
       </Avatar>
 
       <div>
-        <h1 className="text-3xl font-bold mt-3">{user.name}</h1>
+        <h1 className="text-3xl font-bold mt-3">
+          {(props && props.name) || "未設定"}
+        </h1>
         <section className="mb-2">
           <h2 className="text-xl font-bold">一言メッセージ</h2>
 
-          <p className="mt-2">{user.message}</p>
+          <p className="mt-2">{(props && props.message) || "未設定"}</p>
           <h2 className="text-xl font-bold">連絡先</h2>
 
-          <Label>insta</Label>
-
-          <a
-            href={user.insta}
-            className="block text-blue-500 hover:text-blue-700 underline"
-            id="terms"
-          >
-            {user.github}
-          </a>
-          <Label>X</Label>
-
-          <a
-            href={user.insta}
-            className="block text-blue-500 hover:text-blue-700 underline"
-            id="terms"
-          >
-            {user.x}
-          </a>
-
-          <Label>github</Label>
-
-          <a
-            href={user.github}
-            className="block text-blue-500 hover:text-blue-700 underline mb-2"
-            id="terms"
-          >
-            {user.github}
-          </a>
-          {props.IsRyu && (
-            <EditProfile
-              name={user.name}
-              message={user.message}
-              useraddress={user.github}
-            />
+          <Label className="font-bold">insta</Label>
+          {props && props.instagram && props.instagram != "未設定" ? (
+            <a
+              href={props.instagram}
+              className="block text-blue-500 hover:text-blue-700 underline"
+              id="terms"
+            >
+              {props.instagram}
+            </a>
+          ) : (
+            <div>未設定</div>
           )}
+
+          <Label className="font-bold">X</Label>
+          {props && props.X && props.X != "未設定" ? (
+            <a
+              href={props.X}
+              className="block text-blue-500 hover:text-blue-700 underline"
+              id="terms"
+            >
+              {props.X}
+            </a>
+          ) : (
+            <div>未設定</div>
+          )}
+
+          <Label className="font-bold">github</Label>
+          {props && props.github && props.github != "未設定" ? (
+            <a
+              href={props.github}
+              className="block text-blue-500 hover:text-blue-700 underline mb-2"
+              id="terms"
+            >
+              {props.github}
+            </a>
+          ) : (
+            <div>未設定</div>
+          )}
+
+          <div className="text-center">
+            {props && props.IsRyu && (
+              <EditProfile
+                name={props.name || "未設定"}
+                message={props.message || "未設定"}
+                github={props.github || "未設定"}
+                insta={props.instagram || "未設定"}
+                x={props.X || "未設定"}
+              />
+            )}
+          </div>
         </section>
       </div>
     </div>

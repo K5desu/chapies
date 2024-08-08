@@ -3,9 +3,12 @@ import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { articleCard, articleUser } from "@/lib/type";
+import deleteArticleById from "@/app/api/article/deleteArticleById";
 type CardProps = articleCard & articleUser;
 
 export default async function Card({
+  id,
+  owner,
   title,
   content,
   tags,
@@ -16,7 +19,7 @@ export default async function Card({
   campas,
   name,
   isRyu,
-}: CardProps & { isRyu: boolean }) {
+}: CardProps & { isRyu: boolean } & { owner: boolean }) {
   const like = true;
   return (
     <>
@@ -45,7 +48,7 @@ export default async function Card({
               {isRyu ? (
                 <Link href={userid} className="flex gap-x-3">
                   <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarImage src={image || "/annonymous.jpg"} />
                     <AvatarFallback></AvatarFallback>
                   </Avatar>
                   <p className="text-gray-700 text-base mt-3 font-bold">

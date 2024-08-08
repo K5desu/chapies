@@ -86,7 +86,11 @@ export default function Page() {
           記事一覧
         </h1>
         {loading ? (
-          <Cards isRyu={isRyu} posts={filterArticlesRef.current} />
+          <Cards
+            owner={false}
+            isRyu={isRyu}
+            posts={filterArticlesRef.current}
+          />
         ) : (
           <CardsSkeleton />
         )}

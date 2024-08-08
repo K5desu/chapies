@@ -10,16 +10,21 @@ import createUser from "@/app/api/user/createUser";
 import { articleCard, user } from "@/lib/type";
 import getArticlesAndUserByEmail from "@/app/api/article/getArticlesAndUserByEmail";
 import { CardsSkeleton } from "@/components/ui/cardSkeleton";
+import { ProfileSkeleton } from "@/components/ui/profileSkeleton";
 export default function Page() {
   const [loading, setLoading] = useState(false);
   const isRyu = RyuAuthenticator();
   const { data: session } = useSession();
   const articlesRef = useRef<(user & { articles: articleCard[] }) | null>(null);
+  const userRef = useRef<user | null>(null);
   // 仮のユーザーデータと投稿データ
   useEffect(() => {
     async function fetchData() {
       if (isRyu && session && session.user?.email && session.user?.image) {
-        await createUser(session.user.email, session.user.image);
+        userRef.current = await createUser(
+          session.user.email,
+          session.user.image
+        );
         articlesRef.current = await getArticlesAndUserByEmail(
           session.user.email
         );
@@ -35,13 +40,12 @@ export default function Page() {
       {isRyu ? (
         <div className="max-w-4xl mx-auto p-5 ">
           <div className=" flex flex-col items-center ">
-            <Profile
-              userId={null}
-              userEmail={
-                (session && session.user && session.user.email) || null
-              }
-              IsRyu={isRyu}
-            />
+            {loading ? (
+              <Profile {...userRef.current} IsRyu={isRyu} />
+            ) : (
+              <ProfileSkeleton />
+            )}
+
             <Logout />
           </div>
 
@@ -49,6 +53,7 @@ export default function Page() {
             <h2 className="text-xl font-bold mb-5">投稿記事</h2>
             {loading ? (
               <Cards
+                owner={true}
                 isRyu={isRyu}
                 posts={
                   articlesRef.current &&

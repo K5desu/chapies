@@ -1,6 +1,7 @@
 import Card from "@/components/ui/card";
 import { articleCard, articleUser } from "@/lib/type";
 export default function Cards(props: {
+  owner: boolean;
   isRyu: boolean;
   posts: (articleCard & articleUser)[] | undefined | null;
 }) {
@@ -20,6 +21,7 @@ export default function Cards(props: {
             isRyu={props.isRyu}
             name={post.name || "匿名"}
             image={post.image}
+            owner={props.owner}
             key={index}
           />
         ))}

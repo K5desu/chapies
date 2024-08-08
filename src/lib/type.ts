@@ -2,7 +2,7 @@ export type articleprops = {
   action: string;
 };
 export type articleCard = {
-  id: string;
+  id?: string | undefined;
   title: string;
   content: string;
   tags: string;
@@ -12,13 +12,14 @@ export type articleCard = {
   userid: string;
 };
 export type articleUser = {
-  id: string;
+  id?: string | undefined;
   image?: string | null;
   name?: string | null;
 };
 export type user = {
-  id: string;
-  mail: string;
+  id?: string | undefined;
+  mail?: string | undefined;
+  message?: string | null;
   instagram?: string | null;
   X?: string | null;
   github?: string | null;
