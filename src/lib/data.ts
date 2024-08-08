@@ -12,10 +12,6 @@ export const facilityName = [
     label: "グローバルラウンジ",
   },
   {
-    value: "グローバルラウンジ",
-    label: "グローバルラウンジ",
-  },
-  {
     value: "青志館食堂",
     label: "青志館食堂",
   },

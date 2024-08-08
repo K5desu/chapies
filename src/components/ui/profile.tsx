@@ -19,10 +19,8 @@ export default function Profile(props: (user & { IsRyu: boolean }) | null) {
         </h1>
         <section className="mb-2">
           <h2 className="text-xl font-bold">一言メッセージ</h2>
-
           <p className="mt-2">{(props && props.message) || "未設定"}</p>
           <h2 className="text-xl font-bold">連絡先</h2>
-
           <Label className="font-bold">insta</Label>
           {props && props.instagram && props.instagram != "未設定" ? (
             <a
@@ -35,7 +33,6 @@ export default function Profile(props: (user & { IsRyu: boolean }) | null) {
           ) : (
             <div>未設定</div>
           )}
-
           <Label className="font-bold">X</Label>
           {props && props.X && props.X != "未設定" ? (
             <a

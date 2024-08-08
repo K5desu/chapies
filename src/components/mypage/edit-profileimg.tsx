@@ -15,15 +15,32 @@ import { useRef } from "react";
 import type { PutBlobResult } from "@vercel/blob";
 import { useSession } from "next-auth/react";
 import changeUserImgByEmail from "@/app/api/user/changeUserImgByEmail";
+import { useToast } from "@/components/toast/use-toast";
 export function Editprofileimg() {
+  const { toast } = useToast();
   const { data: session } = useSession();
   const inputFileRef = useRef<HTMLInputElement>(null);
   async function handleSubmit() {
     if (!inputFileRef.current?.files) {
-      throw new Error("No file selected");
+      toast({
+        variant: "destructive",
+        title: "画像が選択されていません",
+        description: "画像を選択してください",
+      });
+      return;
     }
 
     const file = inputFileRef.current.files[0];
+    if (file.size > 4.5 * 1024 * 1024) {
+      // 500MBをバイトに変換
+      toast({
+        variant: "destructive",
+        title: "画像サイズが大きすぎます",
+        description: "ファイルサイズは4.5MB以下にしてください。",
+      });
+
+      return;
+    }
     const response = await fetch(`/api/img?filename=${file.name}`, {
       method: "POST",
       body: file,
@@ -47,23 +64,18 @@ export function Editprofileimg() {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              画像
-            </Label>
-            <Input
-              id="name"
-              type="file"
-              className="col-span-3"
-              ref={inputFileRef}
-            />
+          <div className="flex items-center ">
+            <form action={handleSubmit} className="flex flex-col gap-y-4">
+              <Input
+                id="name"
+                type="file"
+                className="col-span-3"
+                ref={inputFileRef}
+              />
+              <Button type="submit">Save changes</Button>
+            </form>
           </div>
         </div>
-        <DialogFooter>
-          <Button type="submit" onClick={async () => await handleSubmit()}>
-            Save changes
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
