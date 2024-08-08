@@ -5,7 +5,19 @@ import { Badge } from "@/components/ui/badge";
 import { articleCard, articleUser } from "@/lib/type";
 import addClickedById from "@/app/api/article/addClickedById";
 import deleteArticleById from "@/app/api/article/deleteArticleById";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 type CardProps = articleCard & articleUser;
+import { Button } from "./button";
 
 export default async function Card({
   id,
@@ -21,36 +33,53 @@ export default async function Card({
   name,
   isRyu,
 }: CardProps & { isRyu: boolean } & { owner: boolean }) {
-  const like = true;
   return (
-    <>
+    <div className="relative max-w-[300px] max-h-[400px] rounded overflow-hidden shadow-lg">
+      {owner && id && (
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              variant="destructive"
+              className="absolute top-[220px] right-2 z-20"
+            >
+              削除
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>本当に削除しますか？</AlertDialogTitle>
+              <AlertDialogDescription>
+                一度削除したら元に戻せません
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={async () => {
+                  await deleteArticleById(id);
+                  window.location.reload();
+                }}
+              >
+                削除
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
+
       <Link
         href={url || "/"}
         onClick={async () => id && (await addClickedById(id))}
       >
-        <div className="max-w-[300px] max-h-[400px] rounded overflow-hidden shadow-lg">
+        <div>
           <img
-            className="w-full max-h-[250px]"
+            className="w-full max-h-[210px]"
             src={img}
             alt="Sunset in the mountains"
           />
           <div className="px-6 py-4 max-h-[80px]">
             <div className="flex justify-between">
               <div className="font-bold text-xl ">{title}</div>
-              {owner && (
-                <Badge
-                  className="z-10"
-                  variant="destructive"
-                  onClick={async () => {
-                    if (id) {
-                      await deleteArticleById(id);
-                      window.location.reload();
-                    }
-                  }}
-                >
-                  削除
-                </Badge>
-              )}
             </div>
             <p className="text-gray-700 text-base">{content}</p>
           </div>
@@ -87,6 +116,6 @@ export default async function Card({
           </div>
         </div>
       </Link>
-    </>
+    </div>
   );
 }
