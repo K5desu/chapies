@@ -6,7 +6,7 @@ export default async function getArticlesAndUserByUserId(
 ): Promise<(user & { articles: articleCard[] }) | null> {
   try {
     const userWithArticles = await prisma.user.findUnique({
-      where: { id: id },
+      where: { uid: id },
       include: { articles: true },
     });
 

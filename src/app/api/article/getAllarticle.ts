@@ -9,7 +9,7 @@ export default async function getAllarticle(): Promise<
       include: {
         user: {
           select: {
-            id: true,
+            uid: true,
             name: true,
             image: true,
           },

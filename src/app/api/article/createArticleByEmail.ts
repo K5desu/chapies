@@ -31,7 +31,7 @@ async function createArticleByEmail(
         campas: campas,
         img: img,
         url: url,
-        userid: user.id,
+        userid: user.uid,
       },
     });
 
