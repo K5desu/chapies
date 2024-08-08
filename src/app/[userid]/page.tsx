@@ -35,7 +35,7 @@ export default function Page({ params }: { params: { userid: string } }) {
   return (
     <>
       <div className="max-w-4xl mx-auto p-5">
-        <Profile {...getUserInfo()} IsRyu={isRyu} />
+        <Profile {...getUserInfo()} IsRyu={false} />
         <section>
           <h2 className="text-xl font-bold mb-5">投稿記事</h2>
           {loading ? (
