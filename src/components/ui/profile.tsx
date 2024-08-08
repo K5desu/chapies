@@ -28,7 +28,9 @@ export default function Profile(props: (user & { IsRyu: boolean }) | null) {
               className="block text-blue-500 hover:text-blue-700 underline"
               id="terms"
             >
-              {props.instagram}
+              {props.instagram && props.instagram.length < 40
+                ? props.instagram
+                : `${props.name}のinstaのリンク`}
             </a>
           ) : (
             <div>未設定</div>
@@ -40,7 +42,9 @@ export default function Profile(props: (user & { IsRyu: boolean }) | null) {
               className="block text-blue-500 hover:text-blue-700 underline"
               id="terms"
             >
-              {props.X}
+              {props.X && props.X.length < 40
+                ? props.X
+                : `${props.name}のXのリンク`}
             </a>
           ) : (
             <div>未設定</div>
@@ -53,7 +57,9 @@ export default function Profile(props: (user & { IsRyu: boolean }) | null) {
               className="block text-blue-500 hover:text-blue-700 underline mb-2"
               id="terms"
             >
-              {props.github}
+              {props.github && props.github.length < 40
+                ? props.github
+                : `${props.name}のgithubのリンク`}
             </a>
           ) : (
             <div>未設定</div>
