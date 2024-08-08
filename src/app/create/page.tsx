@@ -56,7 +56,7 @@ export default function Page() {
   };
   useEffect(() => {
     if (isRyu && session && session.user?.email && session.user?.image) {
-      createUser(session.user.email, session.user.image);
+      createUser(session.user.email);
     }
   }, [session, isRyu]);
   async function handleSubmit() {

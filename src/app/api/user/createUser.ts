@@ -1,7 +1,7 @@
 "use server";
 import prisma from "@/lib/prisma";
 
-async function createUser(email: string, image: string) {
+async function createUser(email: string) {
   try {
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
@@ -18,7 +18,6 @@ async function createUser(email: string, image: string) {
     const user = await prisma.user.create({
       data: {
         mail: email,
-        image: image,
       },
     });
 

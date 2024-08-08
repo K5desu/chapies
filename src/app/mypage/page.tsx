@@ -21,10 +21,7 @@ export default function Page() {
   useEffect(() => {
     async function fetchData() {
       if (isRyu && session && session.user?.email && session.user?.image) {
-        userRef.current = await createUser(
-          session.user.email,
-          session.user.image
-        );
+        userRef.current = await createUser(session.user.email);
         articlesRef.current = await getArticlesAndUserByEmail(
           session.user.email
         );
