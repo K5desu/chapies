@@ -37,7 +37,7 @@ export default function Page() {
       <div className="text-black font-bold text-xl p-4 m-4 border-2 border-black rounded-lg text-center sm:text-base sm:p-2 sm:m-2">
         AIの解答:{replys}
       </div>
-      {typeof articlesRef.current != "string" && loading ? (
+      {typeof articlesRef.current != "string" && articlesRef.current != null ? (
         <Cards owner={false} isRyu={false} posts={articlesRef.current} />
       ) : (
         <div>該当する記事はありません</div>
