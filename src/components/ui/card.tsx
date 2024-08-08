@@ -35,7 +35,23 @@ export default async function Card({
             alt="Sunset in the mountains"
           />
           <div className="px-6 py-4 max-h-[80px]">
-            <div className="font-bold text-xl ">{title}</div>
+            <div className="flex justify-between">
+              <div className="font-bold text-xl ">{title}</div>
+              {owner && (
+                <Badge
+                  className="z-10"
+                  variant="destructive"
+                  onClick={async () => {
+                    if (id) {
+                      await deleteArticleById(id);
+                      window.location.reload();
+                    }
+                  }}
+                >
+                  削除
+                </Badge>
+              )}
+            </div>
             <p className="text-gray-700 text-base">{content}</p>
           </div>
           <div className="px-6 pt-4 pb-2">

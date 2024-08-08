@@ -45,12 +45,12 @@ export default function Page({ params }: { params: { userid: string } }) {
               posts={
                 articlesRef.current &&
                 (() => {
-                  const { name, image, id, articles } = articlesRef.current;
+                  const { name, image, uid, articles } = articlesRef.current;
                   return articles.map((article) => ({
                     ...article,
                     name,
                     image,
-                    id,
+                    uid,
                   }));
                 })()
               }

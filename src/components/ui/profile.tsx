@@ -6,7 +6,7 @@ export default function Profile(props: (user & { IsRyu: boolean }) | null) {
   return (
     <div className="flex flex-col items-center h-auto">
       <Avatar className="w-1/5 h-1/5">
-        <AvatarImage src="https://github.com/shadcn.png" />
+        <AvatarImage src={(props && props.image) || "/annonymous.jpg"} />
         <AvatarFallback></AvatarFallback>
       </Avatar>
 

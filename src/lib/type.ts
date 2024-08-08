@@ -12,12 +12,12 @@ export type articleCard = {
   userid: string;
 };
 export type articleUser = {
-  id?: string | undefined;
+  uid?: string | undefined;
   image?: string | null;
   name?: string | null;
 };
 export type user = {
-  id?: string | undefined;
+  uid?: string | undefined;
   mail?: string | undefined;
   message?: string | null;
   instagram?: string | null;

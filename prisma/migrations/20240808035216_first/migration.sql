@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "user" (
-    "id" TEXT NOT NULL,
+    "uid" TEXT NOT NULL,
     "mail" TEXT NOT NULL,
     "instagram" TEXT,
     "X" TEXT,
@@ -9,7 +9,7 @@ CREATE TABLE "user" (
     "image" TEXT,
     "message" TEXT,
 
-    CONSTRAINT "user_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "user_pkey" PRIMARY KEY ("uid")
 );
 
 -- CreateTable
@@ -31,4 +31,4 @@ CREATE TABLE "article" (
 CREATE UNIQUE INDEX "user_mail_key" ON "user"("mail");
 
 -- AddForeignKey
-ALTER TABLE "article" ADD CONSTRAINT "article_userid_fkey" FOREIGN KEY ("userid") REFERENCES "user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "article" ADD CONSTRAINT "article_userid_fkey" FOREIGN KEY ("userid") REFERENCES "user"("uid") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -14,7 +14,7 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 model user {
-  id      String    @id @default(uuid())
+  uid      String    @id @default(uuid())
   mail    String    @unique
   instagram String?
   X String?
@@ -36,5 +36,5 @@ model article {
   url      String?
   clicked Int      @default(0)
   userid   String  
-  user     user     @relation(fields: [userid], references: [id])
+  user     user     @relation(fields: [userid], references: [uid])
 }
