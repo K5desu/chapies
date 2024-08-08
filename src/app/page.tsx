@@ -28,23 +28,29 @@ export default function Page() {
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
 
-    if (name) {
+    if (name && searchtag) {
       params.set("name", name);
+      params.set("tag", searchtag);
       if (articlesRef.current) {
         filterArticlesRef.current = articlesRef.current.filter(
-          (article) => article.title === name
+          (article) => article.title === name && article.tags === searchtag
         );
       }
-    }
-    if (searchtag) {
+    } else if (searchtag) {
       params.set("tag", searchtag);
       if (articlesRef.current) {
         filterArticlesRef.current = articlesRef.current.filter(
           (article) => article.tags === searchtag
         );
       }
-    }
-    if (!name && !searchtag) {
+    } else if (name) {
+      params.set("name", name);
+      if (articlesRef.current) {
+        filterArticlesRef.current = articlesRef.current.filter(
+          (article) => article.title === name
+        );
+      }
+    } else {
       params.delete("name");
       params.delete("tag");
     }

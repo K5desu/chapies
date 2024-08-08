@@ -2,14 +2,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { EditProfile } from "@/components/mypage/edit-profile";
 import { Label } from "@/components/ui/label";
 import { user } from "@/lib/type";
+import { Editprofileimg } from "@/components/mypage/edit-profileimg";
 export default function Profile(props: (user & { IsRyu: boolean }) | null) {
   return (
     <div className="flex flex-col items-center h-auto">
-      <Avatar className="w-1/5 h-1/5">
-        <AvatarImage src={(props && props.image) || "/annonymous.jpg"} />
-        <AvatarFallback></AvatarFallback>
-      </Avatar>
-
+      <div className="flex items-center justify-center">
+        <Avatar className="w-1/5 h-1/5">
+          <AvatarImage src={(props && props.image) || "/annonymous.jpg"} />
+          <AvatarFallback></AvatarFallback>
+        </Avatar>
+        {props && props.IsRyu && <Editprofileimg />}
+      </div>
       <div>
         <h1 className="text-3xl font-bold mt-3">
           {(props && props.name) || "未設定"}
