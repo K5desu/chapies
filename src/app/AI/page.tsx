@@ -6,16 +6,16 @@ import { getArticlesBytitle } from "@/app/api/article/getArticlesBytitle";
 import { useState, useRef } from "react";
 import { articleCard, articleUser } from "@/lib/type";
 import Cards from "@/components/ui/cards";
+import { RyuAuthenticator } from "@/lib/ryu-authentcator";
 export default function Page() {
   const [replys, setReplys] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
   const articlesRef = useRef<
     (articleCard & articleUser)[] | undefined | null | string
   >(null);
+  const IsRyu = RyuAuthenticator();
   async function handleSubmit(formData: FormData) {
     const question = formData.get("question") as string;
     try {
-      setLoading(false);
       const reply = await replyai(question);
       if (typeof reply === "string") {
         articlesRef.current = await getArticlesBytitle(reply);
@@ -38,7 +38,7 @@ export default function Page() {
         AIの解答:{replys}
       </div>
       {typeof articlesRef.current != "string" && articlesRef.current != null ? (
-        <Cards owner={false} isRyu={false} posts={articlesRef.current} />
+        <Cards owner={false} isRyu={IsRyu} posts={articlesRef.current} />
       ) : (
         <div>該当する記事はありません</div>
       )}
