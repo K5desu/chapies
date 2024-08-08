@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { articleCard, articleUser } from "@/lib/type";
+import addClickedById from "@/app/api/article/addClickedById";
 import deleteArticleById from "@/app/api/article/deleteArticleById";
 type CardProps = articleCard & articleUser;
 
@@ -23,7 +24,10 @@ export default async function Card({
   const like = true;
   return (
     <>
-      <Link href={url || "/"}>
+      <Link
+        href={url || "/"}
+        onClick={async () => id && (await addClickedById(id))}
+      >
         <div className="max-w-[300px] max-h-[400px] rounded overflow-hidden shadow-lg">
           <img
             className="w-full max-h-[250px]"

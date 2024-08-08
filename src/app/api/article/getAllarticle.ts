@@ -15,8 +15,16 @@ export default async function getAllarticle(): Promise<
           },
         },
       },
+      orderBy: {
+        clicked: "desc",
+      },
     });
-    return articles;
+    const formattedArticles = articles.map((article) => ({
+      ...article,
+      name: article.user.name,
+      image: article.user.image,
+    }));
+    return formattedArticles;
   } catch (error) {
     console.error("Error retrieving articles:", error);
     throw error;

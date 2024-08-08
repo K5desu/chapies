@@ -6,7 +6,6 @@ CREATE TABLE "user" (
     "X" TEXT,
     "github" TEXT,
     "name" TEXT,
-    "comment" TEXT,
     "image" TEXT,
     "message" TEXT,
 
@@ -22,6 +21,7 @@ CREATE TABLE "article" (
     "campas" BOOLEAN NOT NULL,
     "img" TEXT NOT NULL,
     "url" TEXT,
+    "clicked" INTEGER NOT NULL DEFAULT 0,
     "userid" TEXT NOT NULL,
 
     CONSTRAINT "article_pkey" PRIMARY KEY ("id")

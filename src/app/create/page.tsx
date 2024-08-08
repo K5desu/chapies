@@ -131,6 +131,7 @@ export default function Page() {
           />
           <div className="md:mx-auto">
             <Card
+              owner={false}
               id="1"
               title={title}
               content={content}

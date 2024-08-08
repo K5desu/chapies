@@ -20,7 +20,6 @@ model user {
   X String?
   github  String?
   name    String?
-  comment String?
   image   String?
   message String?   // ユーザー画像URLを格納するオプショナルフィールド
   articles article[]
@@ -35,6 +34,7 @@ model article {
   campas   Boolean     
   img      String
   url      String?
+  clicked Int      @default(0)
   userid   String  
   user     user     @relation(fields: [userid], references: [id])
 }
