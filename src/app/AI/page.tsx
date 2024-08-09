@@ -35,7 +35,7 @@ export default function Page() {
         <Button type="submit">聞く</Button>
       </form>
       <div className="text-black font-bold text-xl p-4 m-4 border-2 border-black rounded-lg text-center sm:text-base sm:p-2 sm:m-2">
-        AIの解答:{replys}
+        AIの解答:{replys}user
       </div>
       {typeof articlesRef.current != "string" && articlesRef.current != null ? (
         <Cards owner={false} isRyu={IsRyu} posts={articlesRef.current} />
