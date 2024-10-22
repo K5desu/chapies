@@ -27,7 +27,7 @@ model user {
 }
 
 model article {
-  id       String   @id @default(uuid())
+  id       String   @id @default(cuid())
   title    String  
   content  String  
   tags     String  
