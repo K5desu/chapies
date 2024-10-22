@@ -51,3 +51,4 @@ export const useSearchStore = create<SearchStore>((set) => ({
 
   setSearchTag: (searchtag: string) => set(() => ({ searchtag: searchtag })),
 }));
+// import { create } from "zustand";
